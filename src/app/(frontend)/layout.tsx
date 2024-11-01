@@ -19,7 +19,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = async ({
   return (
     <html>
       <body className="text-gray-12">
-        <Header />
+        <Header nav={siteConfig.nav?.main} />
 
         <main className="my-8">
           <Container>{children}</Container>
