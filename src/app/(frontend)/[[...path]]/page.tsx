@@ -41,6 +41,15 @@ const Page = async ({ params }: PageProps) => {
         {posts?.docs && (
           <Section title="Latest posts" noBorder>
             <BlogPostsList posts={posts.docs} />
+
+            <div className="text-right mt-10">
+              <CtaLink
+                href={getCollectionUrlPath('posts')}
+                icon={<ArrowRightIcon className="h-4 w-4" />}
+              >
+                View all posts
+              </CtaLink>
+            </div>
           </Section>
         )}
         <Prose>
