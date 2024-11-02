@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import InternalLink from '@/components/ContentLink/InternalLink';
 import Prose from '@/components/Prose';
 import { getPayload } from '@/payload/client';
+import getCollectionUrlPath from '@/utils/getCollectionUrlPath';
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -59,9 +59,9 @@ const Page = async ({ searchParams, tagId }: PageProps) => {
           {docs.map((post) => (
             <li key={post.id}>
               <div>
-                <InternalLink collection="posts" path={post?.routing?.path}>
+                <Link href={getCollectionUrlPath('posts', post.routing.path)}>
                   {post.title}
-                </InternalLink>
+                </Link>
               </div>
               {post.publishedAt && (
                 <small>

@@ -1,10 +1,11 @@
 import NextImage from 'next/image';
 
-import ContentLink from '@/components/ContentLink/ContentLink';
+import Link from 'next/link';
 import { LinkField } from '@/payload/custom-types';
 import { Media } from '@/payload/payload-types';
 import { Renderer } from '@/payload/richText/renderer/types';
 import cn from '@/utils/cn';
+import extractLinkFieldProps from '@/utils/extractLinkFieldProps';
 
 type UploadExtraProps = {
   relationTo?: string;
@@ -41,9 +42,9 @@ const Image = ({
   }
 
   return (
-    <ContentLink {...link} className="prose-img:my-0">
+    <Link {...extractLinkFieldProps(link)} className="prose-img:my-0">
       {image}
-    </ContentLink>
+    </Link>
   );
 };
 

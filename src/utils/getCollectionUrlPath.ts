@@ -15,11 +15,11 @@ const getPath = (collection: CollectionSlug, path: string) => {
   }
 };
 
-const getContentTypePath = (
+const getCollectionUrlPath = (
   collection: CollectionSlug,
   path?: string | null,
 ) => {
   return normalizePath(getPath(collection, path || ''));
 };
 
-export default getContentTypePath;
+export default getCollectionUrlPath;

@@ -1,6 +1,7 @@
-import InternalLink from '@/components/ContentLink/InternalLink';
+import Link from 'next/link';
 import Prose from '@/components/Prose';
 import { getPayload } from '@/payload/client';
+import getCollectionUrlPath from '@/utils/getCollectionUrlPath';
 
 const Page = async () => {
   const client = await getPayload();
@@ -20,9 +21,9 @@ const Page = async () => {
         <ul className="flex gap-2 list-none">
           {docs.map((post) => (
             <li key={post.id}>
-              <InternalLink collection={'tags'} path={post?.routing?.path}>
+              <Link href={getCollectionUrlPath('tags', post.routing.path)}>
                 #{post.title}
-              </InternalLink>
+              </Link>
             </li>
           ))}
         </ul>

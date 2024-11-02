@@ -1,5 +1,6 @@
-import ContentLink from '@/components/ContentLink/ContentLink';
+import NextLink from 'next/link';
 import { Renderer } from '@/payload/richText/renderer/types';
+import extractLinkFieldProps from '@/utils/extractLinkFieldProps';
 
 type LinkFields = {
   newTab?: boolean;
@@ -19,7 +20,7 @@ const Link: Renderer<{
     return null;
   }
 
-  return <ContentLink {...props} {...linkOptions} />;
+  return <NextLink {...props} {...extractLinkFieldProps(linkOptions)} />;
 };
 
 export default Link;
