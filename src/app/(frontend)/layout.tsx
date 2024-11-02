@@ -21,9 +21,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = async ({
       <body className="text-gray-12">
         <Header nav={siteConfig.nav?.main} />
 
-        <main className="my-8">
-          <Container>{children}</Container>
-        </main>
+        <Container>{children}</Container>
 
         <footer className="my-8 pt-8 border-t border-gray-6">
           <Container>

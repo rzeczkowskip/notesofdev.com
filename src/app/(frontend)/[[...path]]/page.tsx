@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import BlogPostsList from '@/components/BlogPostsList/BlogPostsList';
 import CtaLink from '@/components/CtaLink/CtaLink';
+import PageWithSidebar from '@/components/PageTemplate/PageWithSidebar';
 import PageTitle from '@/components/PageTitle';
 import Prose from '@/components/Prose';
 import RichText from '@/components/RichText/RichText';
@@ -11,6 +12,7 @@ import fetchBlogPosts from '@/content/fetchBlogPosts';
 import fetchDocumentByPath from '@/content/fetchDocumentByPath';
 import generateMeta from '@/content/generateMeta';
 import generateStaticRoutingPaths from '@/content/generateStaticRoutingPaths';
+import { getPayload } from '@/payload/client';
 import getCollectionUrlPath from '@/utils/getCollectionUrlPath';
 
 type PageProps = {
@@ -32,31 +34,44 @@ const Page = async ({ params }: PageProps) => {
 
   const posts =
     page?.routing?.path === '/' ? await fetchBlogPosts({}) : undefined;
+  if (page?.routing?.path === '/') {
+    const client = await getPayload();
+    const posts = await fetchBlogPosts({});
+
+    return (
+      <PageWithSidebar
+        header={page.showTitle ? <PageTitle title={page.title} /> : undefined}
+        sidebarItems={['foo', 'bar', 'baz']}
+      >
+        <div className="grid grid-cols-1 gap-16">
+          {posts?.docs && (
+            <Section title="Latest posts" noBorder>
+              <BlogPostsList posts={posts.docs} />
+
+              <div className="text-right mt-10">
+                <CtaLink
+                  href={getCollectionUrlPath('posts')}
+                  icon={<ArrowRightIcon className="h-4 w-4" />}
+                >
+                  View all posts
+                </CtaLink>
+              </div>
+            </Section>
+          )}
+          <Prose>
+            <RichText content={page.content} />
+          </Prose>
+        </div>
+      </PageWithSidebar>
+    );
+  }
 
   return (
-    <>
-      {page.showTitle && <PageTitle title={page.title} />}
-
-      <div className="grid grid-cols-1 gap-16">
-        {posts?.docs && (
-          <Section title="Latest posts" noBorder>
-            <BlogPostsList posts={posts.docs} />
-
-            <div className="text-right mt-10">
-              <CtaLink
-                href={getCollectionUrlPath('posts')}
-                icon={<ArrowRightIcon className="h-4 w-4" />}
-              >
-                View all posts
-              </CtaLink>
-            </div>
-          </Section>
-        )}
-        <Prose>
-          <RichText content={page.content} />
-        </Prose>
-      </div>
-    </>
+    <Section>
+      <Prose>
+        <RichText content={page.content} />
+      </Prose>
+    </Section>
   );
 };
 
