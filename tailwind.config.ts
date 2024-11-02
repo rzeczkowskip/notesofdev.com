@@ -14,12 +14,18 @@ import {
 } from '@radix-ui/colors';
 import tailwindTypography from '@tailwindcss/typography';
 import { Config } from 'tailwindcss';
+import defaultTheme from 'tailwindcss/defaultTheme';
 import { CustomThemeConfig } from 'tailwindcss/types/config';
 import colorsPlugin, { radixToScale } from './src/tailwind/colorsPlugin';
 
 const config: Config = {
   darkMode: 'class',
   theme: {
+    screens: Object.fromEntries(
+      Object.entries(defaultTheme.screens).filter(
+        ([screen]) => !['2xl', 'xl'].includes(screen),
+      ),
+    ),
     extend: {
       typography: (
         theme: <K extends string>(key: K) => CustomThemeConfig[K],
