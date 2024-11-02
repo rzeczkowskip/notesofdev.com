@@ -4,14 +4,11 @@ import cn from '@/utils/cn';
 type SectionProps = PropsWithChildren<{
   title?: string;
   className?: string;
-  noBorder?: boolean;
 }>;
 
-const Section = ({ title, children, noBorder, className }: SectionProps) => {
-  const hasBorder = noBorder !== true;
-
+const Section = ({ title, children, className }: SectionProps) => {
   return (
-    <section className={cn(hasBorder && 'border-b pb-5', className)}>
+    <section className={className}>
       {title && <h1 className="font-semibold text-xl mb-5">{title}</h1>}
 
       {children}

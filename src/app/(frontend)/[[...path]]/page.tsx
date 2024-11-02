@@ -8,6 +8,7 @@ import PageTitle from '@/components/PageTitle';
 import Prose from '@/components/Prose';
 import RichText from '@/components/RichText/RichText';
 import Section from '@/components/Section';
+import TagsList from '@/components/TagsList/TagsList';
 import fetchBlogPosts from '@/content/fetchBlogPosts';
 import fetchDocumentByPath from '@/content/fetchDocumentByPath';
 import generateMeta from '@/content/generateMeta';
@@ -32,26 +33,35 @@ const Page = async ({ params }: PageProps) => {
     return notFound();
   }
 
-  const posts =
-    page?.routing?.path === '/' ? await fetchBlogPosts({}) : undefined;
   if (page?.routing?.path === '/') {
     const client = await getPayload();
     const posts = await fetchBlogPosts({});
 
+    const tags = await client.find({
+      collection: 'tags',
+      sort: '-updatedAt',
+      depth: 0,
+    });
+
     return (
       <PageWithSidebar
         header={page.showTitle ? <PageTitle title={page.title} /> : undefined}
-        sidebarItems={['foo', 'bar', 'baz']}
+        sidebarItems={[
+          <Section title="Tags" key="tags">
+            <TagsList tags={tags.docs} className="text-sm" />
+          </Section>,
+        ]}
       >
         <div className="grid grid-cols-1 gap-16">
           {posts?.docs && (
-            <Section title="Latest posts" noBorder>
+            <Section title="Latest posts">
               <BlogPostsList posts={posts.docs} />
 
               <div className="text-right mt-10">
                 <CtaLink
                   href={getCollectionUrlPath('posts')}
                   icon={<ArrowRightIcon className="h-4 w-4" />}
+                  iconPosition="end"
                 >
                   View all posts
                 </CtaLink>
