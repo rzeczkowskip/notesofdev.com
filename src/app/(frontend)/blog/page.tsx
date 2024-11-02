@@ -59,7 +59,7 @@ const Page = async ({ searchParams, tagId }: PageProps) => {
           {docs.map((post) => (
             <li key={post.id}>
               <div>
-                <Link href={getCollectionUrlPath('posts', post.routing.path)}>
+                <Link href={getCollectionUrlPath('posts', post?.routing?.path)}>
                   {post.title}
                 </Link>
               </div>

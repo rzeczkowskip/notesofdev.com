@@ -21,7 +21,7 @@ const Page = async () => {
         <ul className="flex gap-2 list-none">
           {docs.map((post) => (
             <li key={post.id}>
-              <Link href={getCollectionUrlPath('tags', post.routing.path)}>
+              <Link href={getCollectionUrlPath('tags', post?.routing?.path)}>
                 #{post.title}
               </Link>
             </li>
