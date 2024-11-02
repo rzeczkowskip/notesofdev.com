@@ -1,11 +1,17 @@
-import { getGlobal } from 'bson/src/utils/global';
+import { ArrowRightIcon } from '@heroicons/react/24/solid';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import BlogPostsList from '@/components/BlogPostsList/BlogPostsList';
+import CtaLink from '@/components/CtaLink/CtaLink';
+import PageTitle from '@/components/PageTitle';
 import Prose from '@/components/Prose';
 import RichText from '@/components/RichText/RichText';
+import Section from '@/components/Section';
+import fetchBlogPosts from '@/content/fetchBlogPosts';
 import fetchDocumentByPath from '@/content/fetchDocumentByPath';
 import generateMeta from '@/content/generateMeta';
 import generateStaticRoutingPaths from '@/content/generateStaticRoutingPaths';
+import getCollectionUrlPath from '@/utils/getCollectionUrlPath';
 
 type PageProps = {
   params: Promise<{
@@ -24,12 +30,23 @@ const Page = async ({ params }: PageProps) => {
     return notFound();
   }
 
+  const posts =
+    page?.routing?.path === '/' ? await fetchBlogPosts({}) : undefined;
+
   return (
     <>
-      {page.showTitle && <h1 className="text-5xl">{page.title}</h1>}
-      <Prose>
-        <RichText content={page.content} />
-      </Prose>
+      {page.showTitle && <PageTitle title={page.title} />}
+
+      <div className="grid grid-cols-1 gap-16">
+        {posts?.docs && (
+          <Section title="Latest posts" noBorder>
+            <BlogPostsList posts={posts.docs} />
+          </Section>
+        )}
+        <Prose>
+          <RichText content={page.content} />
+        </Prose>
+      </div>
     </>
   );
 };
