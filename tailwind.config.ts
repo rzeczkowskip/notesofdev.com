@@ -14,15 +14,51 @@ import {
 } from '@radix-ui/colors';
 import tailwindTypography from '@tailwindcss/typography';
 import { Config } from 'tailwindcss';
-import colorsPlugin from './src/tailwind/colorsPlugin';
+import { CustomThemeConfig } from 'tailwindcss/types/config';
+import colorsPlugin, { radixToScale } from './src/tailwind/colorsPlugin';
 
 const config: Config = {
   darkMode: 'class',
   theme: {
     extend: {
-      typography: () => ({
+      typography: (
+        theme: <K extends string>(key: K) => CustomThemeConfig[K],
+      ) => ({
         DEFAULT: {
           css: {
+            '--tw-prose-body': 'currentColor',
+            '--tw-prose-headings': 'currentColor',
+            '--tw-prose-lead': theme('colors.primary.12'),
+            '--tw-prose-links': theme('colors.primary.11'),
+            '--tw-prose-bold': 'currentColor',
+            '--tw-prose-counters': theme('colors.primary.12'),
+            '--tw-prose-bullets': theme('colors.primary.12'),
+            '--tw-prose-hr': theme('colors.gray.8'),
+            '--tw-prose-quotes': 'currentColor',
+            '--tw-prose-quote-borders': theme('colors.primary.8'),
+            '--tw-prose-captions': theme('colors.gray.11'),
+            '--tw-prose-code': theme('colors.primary.11'),
+            '--tw-prose-code-bg': theme('colors.primary.3'),
+            '--tw-prose-pre-code': theme('colors.primary.12'),
+            '--tw-prose-pre-bg': theme('colors.primary.3'),
+            '--tw-prose-th-borders': theme('colors.gray.8'),
+            '--tw-prose-td-borders': theme('colors.gray.6'),
+            '--tw-prose-invert-body': 'currentColor',
+            '--tw-prose-invert-headings': 'currentColor',
+            '--tw-prose-invert-lead': 'currentColor',
+            '--tw-prose-invert-links': 'currentColor',
+            '--tw-prose-invert-bold': 'currentColor',
+            '--tw-prose-invert-counters': 'currentColor',
+            '--tw-prose-invert-bullets': 'currentColor',
+            '--tw-prose-invert-hr': 'currentColor',
+            '--tw-prose-invert-quotes': 'currentColor',
+            '--tw-prose-invert-quote-borders': 'currentColor',
+            '--tw-prose-invert-captions': 'currentColor',
+            '--tw-prose-invert-code': 'currentColor',
+            '--tw-prose-invert-pre-code': 'currentColor',
+            '--tw-prose-invert-pre-bg': 'rgb(0 0 0 / 50%)',
+            '--tw-prose-invert-th-borders': 'currentColor',
+            '--tw-prose-invert-td-borders': 'currentColor',
             maxWidth: 'none',
             'h1,h2,h3,h4,h5,h6': {
               marginBottom: '1rem',
@@ -49,18 +85,21 @@ const config: Config = {
     colorsPlugin({
       palettes: {
         primary: {
-          light: blue,
-          dark: blueDark,
+          light: radixToScale(blue),
+          dark: radixToScale(blueDark),
           surface: 'color(display-p3 0.9529 0.9765 1 / 0.8)',
           contrast: '#fff',
           indicator: 'oklch(64.9% 0.193 251.8)',
           track: 'oklch(64.9% 0.193 251.8)',
         },
-        gray: { light: gray, dark: grayDark },
-        danger: { light: red, dark: redDark },
-        success: { light: grass, dark: grassDark },
-        info: { light: blue, dark: blueDark },
-        warning: { light: yellow, dark: yellowDark },
+        gray: { light: radixToScale(gray), dark: radixToScale(grayDark) },
+        danger: { light: radixToScale(red), dark: radixToScale(redDark) },
+        success: { light: radixToScale(grass), dark: radixToScale(grassDark) },
+        info: { light: radixToScale(blue), dark: radixToScale(blueDark) },
+        warning: {
+          light: radixToScale(yellow),
+          dark: radixToScale(yellowDark),
+        },
       },
       background: {
         light: '#fff',

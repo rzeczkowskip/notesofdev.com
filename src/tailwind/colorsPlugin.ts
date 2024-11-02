@@ -44,12 +44,12 @@ const colorsPlugin = plugin.withOptions(
       const global: Record<string, string> = {};
 
       Object.entries(options.palettes).forEach(([colorName, config]) => {
-        Object.values(config.light || {}).forEach((color, i) => {
-          light[`--color-${colorName}-${i + 1}`] = color;
+        Object.entries(config.light || {}).forEach(([shade, color]) => {
+          light[`--color-${colorName}-${shade}`] = color;
         });
 
-        Object.values(config.dark || {}).forEach((color, i) => {
-          dark[`--color-${colorName}-${i + 1}`] = color;
+        Object.entries(config.dark || {}).forEach(([shade, color]) => {
+          dark[`--color-${colorName}-${shade}`] = color;
         });
 
         ['surface', 'contrast', 'indicator', 'track'].forEach((colorType) => {
@@ -61,7 +61,7 @@ const colorsPlugin = plugin.withOptions(
             return;
           }
 
-          global[`--color-${colorType}`] = resolveAdditionalColor(
+          global[`--color-${colorName}-${colorType}`] = resolveAdditionalColor(
             colorValue,
             theme,
           );
@@ -94,17 +94,25 @@ const colorsPlugin = plugin.withOptions(
   (options: ColorsPluginOptions) => {
     const colors = Object.fromEntries(
       Object.entries(options.palettes).map(([colorName, config]) => {
-        const keys = Math.max(
-          Object.keys(config?.light || {})?.length || 0,
-          Object.keys(config?.dark || {})?.length || 0,
-        );
+        const shades = [
+          ...new Set(
+            [
+              ...Object.keys(config?.light || {}),
+              ...Object.keys(config?.dark || {}),
+              Object.keys(config).filter(
+                (key) => !['light', 'dark'].includes(key),
+              ),
+            ].flat(),
+          ),
+        ];
 
         return [
           colorName,
           Object.fromEntries(
-            new Array(keys)
-              .fill('')
-              .map((_, i) => [i + 1, `var(--color-${colorName}-${i + 1})`]),
+            shades.map((shade) => [
+              shade,
+              `var(--color-${colorName}-${shade})`,
+            ]),
           ),
         ];
       }),
@@ -124,5 +132,11 @@ const colorsPlugin = plugin.withOptions(
     };
   },
 );
+
+export const radixToScale = (colors: Scale): Scale => {
+  return Object.fromEntries(
+    Object.values(colors).map((value, i) => [i + 1, value]),
+  );
+};
 
 export default colorsPlugin;
