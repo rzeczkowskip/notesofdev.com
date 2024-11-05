@@ -18,7 +18,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = async ({
 
   return (
     <html>
-      <body className="text-gray-12">
+      <body>
         <Header nav={siteConfig.nav?.main} />
 
         {children}

@@ -15,6 +15,7 @@ import {
 import tailwindTypography from '@tailwindcss/typography';
 import { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
+import plugin from 'tailwindcss/plugin';
 import { CustomThemeConfig } from 'tailwindcss/types/config';
 import colorsPlugin, { radixToScale } from './src/tailwind/colorsPlugin';
 
@@ -70,12 +71,12 @@ const config: Config = {
             '--tw-prose-invert-td-borders': 'currentColor',
             maxWidth: 'none',
             'h1,h2,h3,h4,h5,h6': {
+              fontWeight: theme('fontWeight.semibold'),
               marginBottom: '1rem',
               '&:not(:first-child)': {
                 marginTop: '1.5em',
               },
             },
-
             code: {
               backgroundColor: 'var(--tw-prose-code-bg)',
               padding: '0 .1em',
