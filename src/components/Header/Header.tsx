@@ -13,7 +13,10 @@ type HeaderProps = {
 const Header = ({ nav }: HeaderProps) => {
   return (
     <header className="mb-4">
-      <Container className={cn('flex items-center justify-between')}>
+      <Container
+        size="full"
+        className={cn('flex items-center justify-between')}
+      >
         <Link href="/">
           <Logo className="w-14 bg-primary-3 text-center" />
         </Link>
