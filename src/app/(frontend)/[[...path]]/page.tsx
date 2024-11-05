@@ -2,7 +2,10 @@ import { ArrowRightIcon } from '@heroicons/react/24/solid';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import BlogPostsList from '@/components/BlogPostsList/BlogPostsList';
+import Card from '@/components/Card';
+import Container from '@/components/Container';
 import CtaLink from '@/components/CtaLink/CtaLink';
+import FullPage from '@/components/PageTemplate/FullPage';
 import PageWithSidebar from '@/components/PageTemplate/PageWithSidebar';
 import PageTitle from '@/components/PageTitle';
 import Prose from '@/components/Prose';
@@ -44,44 +47,47 @@ const Page = async ({ params }: PageProps) => {
     });
 
     return (
-      <PageWithSidebar
-        header={page.showTitle ? <PageTitle title={page.title} /> : undefined}
-        sidebarItems={[
-          <Section title="Tags" key="tags">
-            <TagsList tags={tags.docs} className="text-sm" />
-          </Section>,
-        ]}
-      >
-        <div className="grid grid-cols-1 gap-16">
-          {posts?.docs && (
-            <Section title="Latest posts">
-              <BlogPostsList posts={posts.docs} />
+      <Container>
+        <PageWithSidebar
+          header={page.showTitle ? <PageTitle title={page.title} /> : undefined}
+          sidebarItems={[
+            <Card title="Tags" key="tags">
+              <TagsList tags={tags.docs} className="text-sm" />
+            </Card>,
+          ]}
+        >
+          <div className="grid grid-cols-1 gap-16">
+            {posts?.docs && (
+              <Section title="Latest posts">
+                <BlogPostsList posts={posts.docs} />
 
-              <div className="text-right mt-10">
-                <CtaLink
-                  href={getCollectionUrlPath('posts')}
-                  icon={<ArrowRightIcon className="h-4 w-4" />}
-                  iconPosition="end"
-                >
-                  View all posts
-                </CtaLink>
-              </div>
-            </Section>
-          )}
-          <Prose>
-            <RichText content={page.content} />
-          </Prose>
-        </div>
-      </PageWithSidebar>
+                <div className="text-right mt-10">
+                  <CtaLink
+                    href={getCollectionUrlPath('posts')}
+                    icon={<ArrowRightIcon className="h-4 w-4" />}
+                    iconPosition="end"
+                  >
+                    View all posts
+                  </CtaLink>
+                </div>
+              </Section>
+            )}
+
+            <Prose>
+              <RichText content={page.content} />
+            </Prose>
+          </div>
+        </PageWithSidebar>
+      </Container>
     );
   }
 
   return (
-    <Section>
+    <FullPage>
       <Prose>
         <RichText content={page.content} />
       </Prose>
-    </Section>
+    </FullPage>
   );
 };
 
