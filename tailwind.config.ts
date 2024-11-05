@@ -116,6 +116,10 @@ const config: Config = {
       },
     }),
     plugin(({ addBase, addUtilities, theme }) => {
+      addBase({
+        body: { color: theme('colors.gray.12') },
+      });
+
       addUtilities({
         '.prose-container': {
           maxWidth: '44rem',
