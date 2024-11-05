@@ -21,9 +21,12 @@ import colorsPlugin, { radixToScale } from './src/tailwind/colorsPlugin';
 const config: Config = {
   darkMode: 'class',
   theme: {
+    borderColor: ({ theme }) => ({
+      DEFAULT: theme('colors.gray.6'),
+    }),
     screens: Object.fromEntries(
       Object.entries(defaultTheme.screens).filter(
-        ([screen]) => !['2xl', 'xl'].includes(screen),
+        ([screen]) => !['2xl'].includes(screen),
       ),
     ),
     extend: {
