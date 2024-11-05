@@ -1,6 +1,13 @@
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import Prose from '@/components/Prose';
+import BlogPostsList from '@/components/BlogPostsList/BlogPostsList';
+import Card from '@/components/Card';
+import Container from '@/components/Container';
+import PageWithSidebar from '@/components/PageTemplate/PageWithSidebar';
+import PageTitle from '@/components/PageTitle';
+import Pagination from '@/components/Pagination';
+import Section from '@/components/Section';
+import TagsList from '@/components/TagsList/TagsList';
+import fetchDocumentByPath from '@/content/fetchDocumentByPath';
 import { getPayload } from '@/payload/client';
 import getCollectionUrlPath from '@/utils/getCollectionUrlPath';
 
@@ -25,7 +32,7 @@ const parsePageNumber = (value: unknown): number => {
 
 const Page = async ({ searchParams, tagId }: PageProps) => {
   const params = await searchParams;
-  const page = parsePageNumber(params.page);
+  const pageNumber = parsePageNumber(params.page);
 
   const where = tagId
     ? {
@@ -36,58 +43,66 @@ const Page = async ({ searchParams, tagId }: PageProps) => {
     : undefined;
 
   const client = await getPayload();
-  const { docs, totalPages, hasNextPage, hasPrevPage } = await client.find({
+  const {
+    totalPages,
+    hasNextPage,
+    hasPrevPage,
+    docs: posts,
+  } = await client.find({
     collection: 'posts',
     sort: '-publishedAt',
-    limit: 10,
-    page,
+    limit: 1,
+    page: pageNumber,
     where,
   });
 
-  if (page && totalPages < page) {
+  if (pageNumber && totalPages < pageNumber) {
     return notFound();
   }
 
-  if (docs.length === 0) {
-    return <Prose>No posts</Prose>;
-  }
+  const tags = await client.find({
+    collection: 'tags',
+    sort: '-updatedAt',
+    depth: 0,
+  });
+
+  const page = await fetchDocumentByPath('pages', '/blog');
 
   return (
-    <>
-      <Prose>
-        <ul>
-          {docs.map((post) => (
-            <li key={post.id}>
-              <div>
-                <Link href={getCollectionUrlPath('posts', post?.routing?.path)}>
-                  {post.title}
-                </Link>
-              </div>
-              {post.publishedAt && (
-                <small>
-                  {new Date(post.publishedAt || 'now').toDateString()}
-                </small>
-              )}
-            </li>
-          ))}
-        </ul>
-      </Prose>
+    <Container>
+      <PageWithSidebar
+        header={
+          (!page || page?.showTitle) && (
+            <PageTitle title={page?.title || 'Blog'} />
+          )
+        }
+        sidebarItems={[
+          <Card title="Tags" key="tags">
+            <TagsList tags={tags.docs} className="text-sm" />
+          </Card>,
+        ]}
+      >
+        <div className="grid grid-cols-1 gap-16">
+          {posts && (
+            <Section title="Latest posts">
+              <BlogPostsList posts={posts} />
 
-      {(hasNextPage || hasPrevPage) && (
-        <div className="mt-8 flex">
-          {hasPrevPage && (
-            <Link href={`?page=${page - 1}`} className="ml-0">
-              ← Newer posts
-            </Link>
-          )}
-          {hasNextPage && (
-            <Link href={`?page=${page + 1}`} className="ml-auto mr-0">
-              Older posts →
-            </Link>
+              <Pagination
+                className="mt-10"
+                hasNextPage={hasNextPage}
+                hasPrevPage={hasPrevPage}
+                nextPageLabel={'Older posts'}
+                prevPageLabel={'Newer posts'}
+                page={pageNumber}
+                generatePageHref={(p) =>
+                  `${getCollectionUrlPath('posts')}?page=${p}`
+                }
+              />
+            </Section>
           )}
         </div>
-      )}
-    </>
+      </PageWithSidebar>
+    </Container>
   );
 };
 
