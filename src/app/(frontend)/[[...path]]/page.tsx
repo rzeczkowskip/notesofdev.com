@@ -2,7 +2,6 @@ import { ArrowRightIcon } from '@heroicons/react/24/solid';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import BlogPostsList from '@/components/BlogPostsList/BlogPostsList';
-import Card from '@/components/Card';
 import Container from '@/components/Container';
 import CtaLink from '@/components/CtaLink/CtaLink';
 import FullPage from '@/components/PageTemplate/FullPage';
@@ -80,11 +79,14 @@ const Page = async ({ params }: PageProps) => {
   }
 
   return (
-    <FullPage>
-      <Prose>
-        <RichText content={page.content} />
-      </Prose>
-    </FullPage>
+    <Container size="prose">
+      <FullPage className="py-24">
+        {page.showTitle && <PageTitle title={page.title} className="mb-12" />}
+        <Prose>
+          <RichText content={page.content} />
+        </Prose>
+      </FullPage>
+    </Container>
   );
 };
 
