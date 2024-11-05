@@ -112,6 +112,13 @@ const config: Config = {
         dark: '#111',
       },
     }),
+    plugin(({ addBase, addUtilities, theme }) => {
+      addUtilities({
+        '.prose-container': {
+          maxWidth: '44rem',
+        },
+      });
+    }),
   ],
 };
 
