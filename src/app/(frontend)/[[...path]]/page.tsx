@@ -11,7 +11,7 @@ import PageTitle from '@/components/PageTitle';
 import Prose from '@/components/Prose';
 import RichText from '@/components/RichText/RichText';
 import Section from '@/components/Section';
-import TagsList from '@/components/TagsList/TagsList';
+import SidebarTags from '@/components/Sidebar/SidebarTags';
 import fetchBlogPosts from '@/content/fetchBlogPosts';
 import fetchDocumentByPath from '@/content/fetchDocumentByPath';
 import generateMeta from '@/content/generateMeta';
@@ -50,11 +50,7 @@ const Page = async ({ params }: PageProps) => {
       <Container>
         <PageWithSidebar
           header={page.showTitle ? <PageTitle title={page.title} /> : undefined}
-          sidebarItems={[
-            <Card title="Tags" key="tags">
-              <TagsList tags={tags.docs} className="text-sm" />
-            </Card>,
-          ]}
+          sidebarItems={[<SidebarTags tags={tags.docs} key="tags" />]}
         >
           <div className="grid grid-cols-1 gap-16">
             {posts?.docs && (

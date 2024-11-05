@@ -6,7 +6,7 @@ import PageWithSidebar from '@/components/PageTemplate/PageWithSidebar';
 import PageTitle from '@/components/PageTitle';
 import Pagination from '@/components/Pagination';
 import Section from '@/components/Section';
-import TagsList from '@/components/TagsList/TagsList';
+import SidebarTags from '@/components/Sidebar/SidebarTags';
 import fetchDocumentByPath from '@/content/fetchDocumentByPath';
 import { getPayload } from '@/payload/client';
 import getCollectionUrlPath from '@/utils/getCollectionUrlPath';
@@ -76,11 +76,7 @@ const Page = async ({ searchParams, tagId }: PageProps) => {
             <PageTitle title={page?.title || 'Blog'} />
           )
         }
-        sidebarItems={[
-          <Card title="Tags" key="tags">
-            <TagsList tags={tags.docs} className="text-sm" />
-          </Card>,
-        ]}
+        sidebarItems={[<SidebarTags tags={tags.docs} key="tags" />]}
       >
         <div className="grid grid-cols-1 gap-16">
           {posts && (
