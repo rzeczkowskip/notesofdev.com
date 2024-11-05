@@ -15,19 +15,13 @@ export const generateStaticParams = () => generateStaticRoutingPaths('tags');
 
 const Page = async ({ params, searchParams }: PageProps) => {
   const { path = [] } = await params;
-  const page = await fetchDocumentByPath('tags', path);
+  const tag = await fetchDocumentByPath('tags', path);
 
-  if (!page) {
+  if (!tag) {
     return notFound();
   }
 
-  return (
-    <>
-      <h1 className="text-5xl">#{page.title}</h1>
-
-      <Blog searchParams={searchParams} tagId={page.id} />
-    </>
-  );
+  return <Blog searchParams={searchParams} tag={tag} />;
 };
 
 export default Page;

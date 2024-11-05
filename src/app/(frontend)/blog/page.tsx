@@ -9,11 +9,12 @@ import Section from '@/components/Section';
 import SidebarTags from '@/components/Sidebar/SidebarTags';
 import fetchDocumentByPath from '@/content/fetchDocumentByPath';
 import { getPayload } from '@/payload/client';
+import { Tag } from '@/payload/payload-types';
 import getCollectionUrlPath from '@/utils/getCollectionUrlPath';
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
-  tagId?: string;
+  tag?: Tag;
 };
 
 const parsePageNumber = (value: unknown): number => {
@@ -30,14 +31,14 @@ const parsePageNumber = (value: unknown): number => {
   return asInt;
 };
 
-const Page = async ({ searchParams, tagId }: PageProps) => {
+const Page = async ({ searchParams, tag }: PageProps) => {
   const params = await searchParams;
   const pageNumber = parsePageNumber(params.page);
 
-  const where = tagId
+  const where = tag
     ? {
         tags: {
-          in: [tagId],
+          in: [tag.id],
         },
       }
     : undefined;
@@ -51,7 +52,7 @@ const Page = async ({ searchParams, tagId }: PageProps) => {
   } = await client.find({
     collection: 'posts',
     sort: '-publishedAt',
-    limit: 1,
+    limit: 20,
     page: pageNumber,
     where,
   });
@@ -66,7 +67,7 @@ const Page = async ({ searchParams, tagId }: PageProps) => {
     depth: 0,
   });
 
-  const page = await fetchDocumentByPath('pages', '/blog');
+  const page = tag ? null : await fetchDocumentByPath('pages', '/blog');
 
   return (
     <Container>
@@ -74,14 +75,16 @@ const Page = async ({ searchParams, tagId }: PageProps) => {
         className="py-24"
         header={
           (!page || page?.showTitle) && (
-            <PageTitle title={page?.title || 'Blog'} />
+            <PageTitle
+              title={page?.title || (tag ? `#${tag.title}` : 'Blog')}
+            />
           )
         }
         sidebarItems={[<SidebarTags tags={tags.docs} key="tags" />]}
       >
         <div className="grid grid-cols-1 gap-16">
           {posts && (
-            <Section title="Latest posts">
+            <Section title="Posts">
               <BlogPostsList posts={posts} />
 
               <Pagination
