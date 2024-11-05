@@ -38,7 +38,7 @@ const resolveAdditionalColor = (
 
 const colorsPlugin = plugin.withOptions(
   (options: ColorsPluginOptions) =>
-    ({ addBase, theme }) => {
+    ({ addBase, addUtilities, theme }) => {
       const light: Record<string, string> = {};
       const dark: Record<string, string> = {};
       const global: Record<string, string> = {};
@@ -87,6 +87,12 @@ const colorsPlugin = plugin.withOptions(
         ':root, .light, .dark .invert': light,
         '.dark, .light .invert': dark,
         body: {
+          backgroundColor: 'var(--color-background)',
+        },
+      });
+
+      addUtilities({
+        '.bg-solid': {
           backgroundColor: 'var(--color-background)',
         },
       });
