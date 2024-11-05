@@ -18,6 +18,7 @@ type CtaLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &
     type?: EnumLike<typeof CtaLinkType>;
     icon?: React.ReactNode;
     iconPosition?: EnumLike<typeof IconPosition>;
+    iconClassName?: string;
   };
 
 const CtaLink = ({
@@ -25,6 +26,8 @@ const CtaLink = ({
   icon,
   iconPosition,
   children,
+  className,
+  iconClassName,
   ...props
 }: CtaLinkProps) => {
   return (
@@ -42,10 +45,11 @@ const CtaLink = ({
           'bg-primary-3 hover:bg-primary-4 active:bg-primary-5 text-gray-12',
         type === CtaLinkType.Neutral &&
           ' bg-transparent active:bg-gray-2 text-gray-12',
+        className,
       )}
       {...props}
     >
-      <div className="transition group-hover:translate-x-1">{icon}</div>
+      <div className={iconClassName}>{icon}</div>
       {children}
     </Link>
   );
