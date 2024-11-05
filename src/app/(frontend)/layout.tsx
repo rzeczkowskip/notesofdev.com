@@ -29,7 +29,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = async ({
               Copyright &copy;{' '}
               <Link
                 href="/"
-                className=" underline text-primary-8 hover:text-primary-12"
+                className=" underline text-primary-11 hover:text-primary-12"
               >
                 {siteConfig?.general.title}
               </Link>
