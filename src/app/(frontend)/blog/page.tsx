@@ -71,6 +71,7 @@ const Page = async ({ searchParams, tagId }: PageProps) => {
   return (
     <Container>
       <PageWithSidebar
+        className="py-24"
         header={
           (!page || page?.showTitle) && (
             <PageTitle title={page?.title || 'Blog'} />

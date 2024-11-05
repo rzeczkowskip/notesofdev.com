@@ -49,6 +49,7 @@ const Page = async ({ params }: PageProps) => {
     return (
       <Container>
         <PageWithSidebar
+          className="py-24"
           header={page.showTitle ? <PageTitle title={page.title} /> : undefined}
           sidebarItems={[<SidebarTags tags={tags.docs} key="tags" />]}
         >

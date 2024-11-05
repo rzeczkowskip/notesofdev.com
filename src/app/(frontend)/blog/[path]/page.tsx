@@ -72,7 +72,7 @@ const Page = async ({ params }: PageProps) => {
   const relatedPosts = [...relatedPostsByTag.docs, ...randomPosts.docs];
 
   return (
-    <FullPage>
+    <FullPage className="pt-24">
       <Container size="prose">
         <article className="grid grid-cols-1 gap-16 mb-24">
           <header>
