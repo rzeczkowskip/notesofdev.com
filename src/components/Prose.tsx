@@ -16,7 +16,7 @@ const Prose = React.forwardRef<HTMLDivElement, ProseProps>(function Prose(
 
   return (
     <Comp
-      className={cn('prose', small !== true && 'md:prose-lg', className)}
+      className={cn('prose', small !== true && 'lg:prose-lg', className)}
       {...props}
       ref={ref}
     />
