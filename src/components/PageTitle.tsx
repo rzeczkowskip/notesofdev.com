@@ -1,13 +1,20 @@
+import cn from '@/utils/cn';
+
 type PageTitleProps = {
   title?: string;
+  className?: string;
 };
 
-const PageTitle = ({ title }: PageTitleProps) => {
+const PageTitle = ({ title, className }: PageTitleProps) => {
   if (!title) {
     return null;
   }
 
-  return <h1 className="mb-12 text-5xl font-semibold leading-none">{title}</h1>;
+  return (
+    <h1 className={cn('text-5xl font-semibold leading-none', className)}>
+      {title}
+    </h1>
+  );
 };
 
 export default PageTitle;
