@@ -37,8 +37,8 @@ const CtaLink = ({
         'group',
         'inline-flex items-center justify-center gap-2',
         iconPosition === IconPosition.End && 'flex-row-reverse',
-        'px-4 py-2 border border-transparent rounded-full',
-        'text-sm whitespace-nowrap font-medium',
+        'px-4 py-2 border border-transparent',
+        ' whitespace-nowrap font-medium',
         type === CtaLinkType.Primary &&
           'text-primary-contrast bg-primary-9 hover:bg-primary-10 active:bg-primary-11',
         type === CtaLinkType.Secondary &&
