@@ -1,9 +1,25 @@
 import '@/app/(frontend)/app.css';
 import { Metadata } from 'next';
+import { Bitter, Mulish } from 'next/font/google';
 import Link from 'next/link';
 import Container from '@/components/Container';
 import Header from '@/components/Header/Header';
 import { getPayload } from '@/payload/client';
+import cn from '@/utils/cn';
+
+const fontSerif = Bitter({
+  subsets: [],
+  variable: '--font-serif',
+  weight: 'variable',
+  display: 'swap',
+});
+
+const fontSans = Mulish({
+  subsets: [],
+  variable: '--font-sans',
+  weight: 'variable',
+  display: 'swap',
+});
 
 const getSiteConfig = async () => {
   const client = await getPayload();
@@ -17,7 +33,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = async ({
   const siteConfig = await getSiteConfig();
 
   return (
-    <html>
+    <html className={cn(fontSerif.variable, fontSans.variable, 'font-sans')}>
       <body>
         <Header nav={siteConfig.nav?.main} />
 

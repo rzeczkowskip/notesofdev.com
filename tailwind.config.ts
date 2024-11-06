@@ -22,9 +22,11 @@ import colorsPlugin, { radixToScale } from './src/tailwind/colorsPlugin';
 const config: Config = {
   darkMode: 'class',
   theme: {
-    borderColor: ({ theme }) => ({
-      DEFAULT: theme('colors.gray.6'),
-    }),
+    fontFamily: {
+      ...defaultTheme.fontFamily,
+      sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
+      serif: ['var(--font-serif)', ...defaultTheme.fontFamily.serif],
+    },
     screens: Object.fromEntries(
       Object.entries(defaultTheme.screens).filter(
         ([screen]) => !['2xl'].includes(screen),
@@ -70,8 +72,10 @@ const config: Config = {
             '--tw-prose-invert-th-borders': 'currentColor',
             '--tw-prose-invert-td-borders': 'currentColor',
             maxWidth: 'none',
+            fontFamily: theme('fontFamily.serif').join(','),
             'h1,h2,h3,h4,h5,h6': {
               fontWeight: theme('fontWeight.semibold'),
+              fontFamily: theme('fontFamily.sans').join(','),
               marginBottom: '1rem',
               '&:not(:first-child)': {
                 marginTop: '1.5em',
