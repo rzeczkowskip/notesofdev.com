@@ -44,7 +44,7 @@ const CtaLink = ({
         type === CtaLinkType.Secondary &&
           'bg-primary-3 hover:bg-primary-4 active:bg-primary-5 text-gray-12',
         type === CtaLinkType.Neutral &&
-          ' bg-transparent active:bg-gray-2 text-gray-12',
+          'bg-transparent hover:bg-gray-2 active:bg-gray-3 text-gray-12',
         className,
       )}
       {...props}
