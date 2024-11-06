@@ -40,7 +40,7 @@ export interface Config {
   globals: {
     siteConfig: SiteConfig;
   };
-  locale: 'pl';
+  locale: 'en';
   user: Admin & {
     collection: 'admins';
   };
