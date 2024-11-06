@@ -33,6 +33,9 @@ const config: Config = {
       ),
     ),
     extend: {
+      borderColor: ({ theme }) => ({
+        DEFAULT: theme('colors.gray.6'),
+      }),
       typography: (
         theme: <K extends string>(key: K) => CustomThemeConfig[K],
       ) => ({
