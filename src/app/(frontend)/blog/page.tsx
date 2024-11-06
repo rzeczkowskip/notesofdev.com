@@ -59,12 +59,6 @@ const Page = async ({ searchParams, tag }: PageProps) => {
     return notFound();
   }
 
-  const tags = await client.find({
-    collection: 'tags',
-    sort: '-updatedAt',
-    depth: 0,
-  });
-
   const page = tag ? null : await fetchDocumentByPath('pages', '/blog');
 
   return (
