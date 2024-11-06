@@ -21,7 +21,7 @@ const Header = ({ nav }: HeaderProps) => {
           <Logo className="text-center" />
         </Link>
 
-        {nav && nav.length && (
+        {nav && nav.length > 0 && (
           <NavBar toggleAriaLabel="Toggle menu">
             <Nav items={nav} />
           </NavBar>
