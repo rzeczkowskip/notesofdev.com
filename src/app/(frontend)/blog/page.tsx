@@ -1,12 +1,10 @@
 import { notFound } from 'next/navigation';
+import PageWithSidebar from '@/app/(frontend)/_pageLayout/PageWithSidebar';
 import BlogPostsList from '@/components/BlogPostsList/BlogPostsList';
-import Card from '@/components/Card';
 import Container from '@/components/Container';
-import PageWithSidebar from '@/components/PageTemplate/PageWithSidebar';
 import PageTitle from '@/components/PageTitle';
 import Pagination from '@/components/Pagination';
 import Section from '@/components/Section';
-import SidebarTags from '@/components/Sidebar/SidebarTags';
 import fetchDocumentByPath from '@/content/fetchDocumentByPath';
 import { getPayload } from '@/payload/client';
 import { Tag } from '@/payload/payload-types';
@@ -71,17 +69,12 @@ const Page = async ({ searchParams, tag }: PageProps) => {
 
   return (
     <Container>
-      <PageWithSidebar
-        className="py-24"
-        header={
-          (!page || page?.showTitle) && (
-            <PageTitle
-              title={page?.title || (tag ? `#${tag.title}` : 'Blog')}
-            />
-          )
-        }
-        sidebarItems={[<SidebarTags tags={tags.docs} key="tags" />]}
-      >
+      <PageWithSidebar>
+        {page?.showTitle !== false && (
+          <PageTitle>
+            {page?.title || (tag ? `#${tag.title}` : 'Blog')}
+          </PageTitle>
+        )}
         <div className="grid grid-cols-1 gap-16">
           {posts && (
             <Section title="Posts">

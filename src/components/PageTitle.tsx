@@ -1,18 +1,18 @@
+import { PropsWithChildren } from 'react';
 import cn from '@/utils/cn';
 
-type PageTitleProps = {
-  title?: string;
+type PageTitleProps = PropsWithChildren<{
   className?: string;
-};
+}>;
 
-const PageTitle = ({ title, className }: PageTitleProps) => {
-  if (!title) {
+const PageTitle = ({ children, className }: PageTitleProps) => {
+  if (!children) {
     return null;
   }
 
   return (
-    <h1 className={cn('text-5xl font-semibold leading-none', className)}>
-      {title}
+    <h1 className={cn('text-5xl font-semibold leading-none mb-8', className)}>
+      {children}
     </h1>
   );
 };

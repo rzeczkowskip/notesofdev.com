@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CtaLink from '@/components/CtaLink/CtaLink';
 import { Tag } from '@/payload/payload-types';
 import cn from '@/utils/cn';
 import getCollectionUrlPath from '@/utils/getCollectionUrlPath';
@@ -19,12 +20,12 @@ const TagsList = ({ tags, className, linkClassName }: TagsListProps) => {
       {tags.map((tag) => {
         return (
           <li key={tag.id}>
-            <Link
+            <CtaLink
               href={getCollectionUrlPath('tags', tag.routing?.path)}
-              className={cn('hover:underline', linkClassName)}
+              className="block border-gray-6"
             >
-              #{tag.title}
-            </Link>
+              {tag.title}
+            </CtaLink>
           </li>
         );
       })}

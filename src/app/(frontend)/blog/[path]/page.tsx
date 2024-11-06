@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import FullPage from '@/app/(frontend)/_pageLayout/FullPage';
 import Card from '@/components/Card';
 import Container from '@/components/Container';
-import FullPage from '@/components/PageTemplate/FullPage';
 import PageTitle from '@/components/PageTitle';
 import PostDate from '@/components/PostDate';
 import Prose from '@/components/Prose';
@@ -33,17 +33,11 @@ const PostHeader = ({ post }: { post: Post }) => {
     <div className="grid grid-cols-1 gap-4">
       <PostDate publishedAt={post.publishedAt} />
 
-      <PageTitle title={post.title} />
+      <PageTitle>{post.title}</PageTitle>
 
       <Prose className="text-gray-11 grow" small>
         <RichText content={post.intro} />
       </Prose>
-
-      {post.tags && (
-        <div className="flex gap-2 border-y py-3">
-          Tags: <TagsList tags={post.tags as Tag[]} />
-        </div>
-      )}
     </div>
   );
 };
@@ -72,20 +66,25 @@ const Page = async ({ params }: PageProps) => {
   const relatedPosts = [...relatedPostsByTag.docs, ...randomPosts.docs];
 
   return (
-    <FullPage className="pt-24">
-      <Container size="prose">
-        <article className="grid grid-cols-1 gap-16 mb-24">
-          <header>
-            <PostHeader post={post} />
-          </header>
+    <>
+      <FullPage className="border-b pb-0">
+        <Container size="prose">
+          <article className="grid grid-cols-1 gap-16 mb-24">
+            <header>
+              <PostHeader post={post} />
+            </header>
 
-          <Prose>
-            <RichText content={post.content} />
-          </Prose>
-        </article>
-      </Container>
+            <Prose>
+              <RichText content={post.content} />
+            </Prose>
 
-      <div className="bg-gray-1 border-t py-24">
+            {post.tags && (
+              <TagsList tags={post.tags as Tag[]} className="text-sm" />
+            )}
+          </article>
+        </Container>
+      </FullPage>
+      <div className="py-24 bg-gray-1">
         <Container size="prose">
           {relatedPosts.length > 0 && (
             <Section>
@@ -113,7 +112,7 @@ const Page = async ({ params }: PageProps) => {
           )}
         </Container>
       </div>
-    </FullPage>
+    </>
   );
 };
 

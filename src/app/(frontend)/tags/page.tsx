@@ -1,14 +1,13 @@
 import { ArrowRightIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import FullPage from '@/app/(frontend)/_pageLayout/FullPage';
 import BlogPostsList from '@/components/BlogPostsList/BlogPostsList';
 import Card from '@/components/Card';
 import Container from '@/components/Container';
 import CtaLink from '@/components/CtaLink/CtaLink';
-import FullPage from '@/components/PageTemplate/FullPage';
 import PageTitle from '@/components/PageTitle';
 import Prose from '@/components/Prose';
-import Section from '@/components/Section';
 import fetchBlogPosts from '@/content/fetchBlogPosts';
 import { getPayload } from '@/payload/client';
 import getCollectionUrlPath from '@/utils/getCollectionUrlPath';
@@ -30,9 +29,9 @@ const Page = async () => {
   });
 
   return (
-    <FullPage className="pt-24">
+    <FullPage>
       <Container size="prose" className="mb-24">
-        <PageTitle title="Tags" className="mb-12" />
+        <PageTitle>Tags</PageTitle>
         <Prose className="prose-ul:ps-0 prose-li:ps-0 prose-li:m-0">
           {docs.length ? (
             <ul className="flex gap-2 list-none">
