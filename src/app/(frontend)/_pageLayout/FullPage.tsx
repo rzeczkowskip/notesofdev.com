@@ -6,7 +6,7 @@ type FullPageProps = PropsWithChildren<{
 }>;
 
 const FullPage = ({ children, className }: FullPageProps) => {
-  return <main className={cn('py-24', className)}>{children}</main>;
+  return <main className={cn('py-12', className)}>{children}</main>;
 };
 
 export default FullPage;
