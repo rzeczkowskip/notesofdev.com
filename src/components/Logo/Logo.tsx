@@ -1,3 +1,4 @@
+import LogoImage from './logo.svg';
 import cn from '@/utils/cn';
 
 type LogoProps = {
@@ -5,7 +6,7 @@ type LogoProps = {
 };
 
 const Logo = ({ className }: LogoProps) => {
-  return <div className={cn('flex items-center h-14 w-14', className)}>L</div>;
+  return <LogoImage className={cn('h-12 w-auto block', className)} />;
 };
 
 export default Logo;

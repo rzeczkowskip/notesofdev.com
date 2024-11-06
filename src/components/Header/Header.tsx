@@ -12,13 +12,13 @@ type HeaderProps = {
 
 const Header = ({ nav }: HeaderProps) => {
   return (
-    <header className="mb-4">
+    <header className="py-4">
       <Container
         size="full"
         className={cn('flex items-center justify-between')}
       >
         <Link href="/">
-          <Logo className="w-14 bg-primary-3 text-center" />
+          <Logo className="text-center" />
         </Link>
 
         {nav && nav.length && (
