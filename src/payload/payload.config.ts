@@ -6,6 +6,7 @@ import { buildConfig, CollectionSlug } from 'payload';
 import sharp from 'sharp';
 
 import CodeBlock from '@/payload/blocks/CodeBlock';
+import LatestPostsBlock from '@/payload/blocks/LatestPostsBlock';
 import { cachedPayloadPlugin } from '@/payload/cache';
 import Admins from '@/payload/collections/Admins';
 import Media from '@/payload/collections/Media';
@@ -65,7 +66,7 @@ export default buildConfig({
         withLabel: false,
       },
     ),
-    blocks: [CodeBlock],
+    blocks: [CodeBlock, LatestPostsBlock],
   }),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

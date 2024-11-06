@@ -33,48 +33,15 @@ const Page = async ({ params }: PageProps) => {
     return notFound();
   }
 
-  if (page?.routing?.path === '/') {
-    const posts = await fetchBlogPosts({});
-
-    return (
-      <Container>
-        <PageWithSidebar pageTitle={page.showTitle && page.title}>
-          {page.showTitle && <PageTitle>{page.title}</PageTitle>}
-
-          <div className="grid grid-cols-1 gap-16">
-            {posts?.docs && (
-              <Section title="Latest posts">
-                <BlogPostsList posts={posts.docs} />
-
-                <div className="text-right mt-10">
-                  <CtaLink
-                    href={getCollectionUrlPath('posts')}
-                    icon={<ArrowRightIcon className="h-4 w-4" />}
-                    iconPosition="end"
-                  >
-                    View all posts
-                  </CtaLink>
-                </div>
-              </Section>
-            )}
-
-            <Prose>
-              <RichText content={page.content} />
-            </Prose>
-          </div>
-        </PageWithSidebar>
-      </Container>
-    );
-  }
-
   return (
-    <Container size="prose">
-      <FullPage>
-        {page.showTitle && page.title}
+    <Container>
+      <PageWithSidebar pageTitle={page.showTitle && page.title}>
+        {page.showTitle && <PageTitle>{page.title}</PageTitle>}
+
         <Prose>
           <RichText content={page.content} />
         </Prose>
-      </FullPage>
+      </PageWithSidebar>
     </Container>
   );
 };
