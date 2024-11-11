@@ -24,11 +24,13 @@ const SiteConfig: GlobalConfig = {
               type: 'text',
               name: 'title',
               required: true,
+              localized: true,
             },
             {
               type: 'text',
               name: 'baseUrl',
               required: false,
+              localized: true,
             },
           ],
         },

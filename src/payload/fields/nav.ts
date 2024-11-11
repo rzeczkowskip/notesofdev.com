@@ -27,6 +27,7 @@ const nav: CustomField<ArrayField, NavFieldOptions> = (
       label: 'Label',
       type: 'text',
       required: true,
+      localized: true,
     },
   ];
 

@@ -61,6 +61,7 @@ const seo: CustomField<GroupField, Options> = (
     } as FieldBase['admin']),
     type: 'group',
     interfaceName: 'SeoField',
+    localized: true,
     fields,
   } as GroupField;
 };

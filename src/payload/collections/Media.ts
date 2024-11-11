@@ -23,8 +23,10 @@ const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
+      localized: true,
     },
     {
+      localized: true,
       name: 'source',
       type: 'text',
     },

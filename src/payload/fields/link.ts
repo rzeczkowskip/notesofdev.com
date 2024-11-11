@@ -40,6 +40,7 @@ const link: CustomField<GroupField, LinkFieldOptions> = (
       label: 'Label',
       type: 'text',
       required: true,
+      localized: true,
     });
   }
 
