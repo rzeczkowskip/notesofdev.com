@@ -5,7 +5,9 @@ const Admins: CollectionConfig = {
   admin: {
     useAsTitle: 'email',
   },
-  auth: true,
+  auth: {
+    tokenExpiration: 3600 * 24 * 7,
+  },
   fields: [
     // Email added by default
     // Add more fields as needed
