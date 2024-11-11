@@ -2,7 +2,7 @@ import BlogPostsList from '@/components/BlogPostsList/BlogPostsList';
 import fetchBlogPosts from '@/content/fetchBlogPosts';
 
 type BlogLatestPostsProps = {
-  postCount: number;
+  postCount?: number;
 };
 
 const BlogLatestPosts = async ({ postCount = 5 }: BlogLatestPostsProps) => {

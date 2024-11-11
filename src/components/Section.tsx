@@ -1,5 +1,4 @@
 import { PropsWithChildren } from 'react';
-import cn from '@/utils/cn';
 
 type SectionProps = PropsWithChildren<{
   title?: string;
