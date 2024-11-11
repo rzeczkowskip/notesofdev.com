@@ -3,7 +3,6 @@ import Prose from '@/components/Prose';
 import RichText from '@/components/RichText/RichText';
 import Time from '@/components/Time';
 import { Post } from '@/payload/payload-types';
-import getCollectionUrlPath from '@/utils/getCollectionUrlPath';
 
 type ListItemProps = {
   post: Post;
@@ -20,10 +19,7 @@ const ListItem = ({ post }: ListItemProps) => {
       </div>
 
       <h1 className="text-xl font-semibold">
-        <Link
-          href={getCollectionUrlPath('posts', post?.routing?.path)}
-          className="hover:text-primary-11 group"
-        >
+        <Link href={post.routing.path} className="hover:text-primary-11 group">
           <span className="inline-block group-hover:translate-x-1 transition-transform">
             {post.title}
           </span>

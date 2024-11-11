@@ -5,7 +5,7 @@ export type LinkField = {
   url?: string | null;
   doc?: {
     relationTo: CollectionSlug | string;
-    value: string | { routing?: { path?: string | null } };
+    value: string | { routing: { path: string } };
   } | null;
   newTab?: boolean | null;
 };

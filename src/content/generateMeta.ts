@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { CollectionSlug, TypedCollection } from 'payload';
 import { getPayload } from '@/payload/client';
-import getCollectionUrlPath from '@/utils/getCollectionUrlPath';
 
 const generateMeta = async <T extends CollectionSlug>(
   contentType: T,
@@ -31,8 +30,8 @@ const generateMeta = async <T extends CollectionSlug>(
         : undefined,
       title,
       url:
-        doc && 'routing' in doc && doc?.routing?.slug?.value
-          ? getCollectionUrlPath(contentType, doc?.routing?.slug?.value)
+        doc && 'routing' in doc && !!doc.routing.path
+          ? doc.routing.path
           : undefined,
     },
     title,

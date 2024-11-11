@@ -14,7 +14,7 @@ const fetchDocumentByPath = async <T extends CollectionSlug>(
 
   return client.findOne({
     collection,
-    field: 'routing.path',
+    field: 'routing.internalPath',
     value: fullPath,
   });
 };

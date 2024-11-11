@@ -2,15 +2,14 @@ import { ArrowRightIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import FullPage from '@/app/(frontend)/_pageLayout/FullPage';
-import BlogPostsList from '@/components/BlogPostsList/BlogPostsList';
+import BlogLatestPosts from '@/components/BlogLatestPosts/BlogLatestPosts';
 import Card from '@/components/Card';
 import Container from '@/components/Container';
 import CtaLink from '@/components/CtaLink/CtaLink';
 import PageTitle from '@/components/PageTitle';
 import Prose from '@/components/Prose';
-import fetchBlogPosts from '@/content/fetchBlogPosts';
+import { STATIC_ROUTES } from '@/contants';
 import { getPayload } from '@/payload/client';
-import getCollectionUrlPath from '@/utils/getCollectionUrlPath';
 
 const Page = async () => {
   const client = await getPayload();
@@ -24,10 +23,6 @@ const Page = async () => {
     return notFound();
   }
 
-  const posts = await fetchBlogPosts({
-    limit: 5,
-  });
-
   return (
     <FullPage>
       <Container size="prose" className="mb-24">
@@ -37,11 +32,7 @@ const Page = async () => {
             <ul className="flex gap-2 list-none">
               {docs.map((post) => (
                 <li key={post.id}>
-                  <Link
-                    href={getCollectionUrlPath('tags', post?.routing?.path)}
-                  >
-                    #{post.title}
-                  </Link>
+                  <Link href={post.routing.path}>#{post.title}</Link>
                 </li>
               ))}
             </ul>
@@ -54,11 +45,11 @@ const Page = async () => {
       <div className="bg-gray-1 border-t py-24">
         <Container size="prose">
           <Card title="Latest posts" className="bg-solid">
-            <BlogPostsList posts={posts.docs} />
+            <BlogLatestPosts />
 
             <div className="text-right mt-10">
               <CtaLink
-                href={getCollectionUrlPath('posts')}
+                href={STATIC_ROUTES.Blog}
                 icon={<ArrowRightIcon className="h-4 w-4" />}
                 iconPosition="end"
               >

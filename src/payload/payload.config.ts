@@ -84,9 +84,25 @@ export default buildConfig({
     }),
     routing({
       collections: {
-        pages: { slugFields: ['title'], hierarchical: true },
-        posts: { slugFields: ['title'], hierarchical: false },
-        tags: { slugFields: ['title'], hierarchical: false },
+        pages: {
+          slugFields: ['title'],
+          hierarchical: true,
+          urlPathGenerator: async (doc) => {
+            return doc?.routing?.internalPath;
+          },
+        },
+        posts: {
+          slugFields: ['title'],
+          hierarchical: false,
+          urlPathGenerator: async (doc) =>
+            `/blog/${doc?.routing?.internalPath}`,
+        },
+        tags: {
+          slugFields: ['title'],
+          hierarchical: false,
+          urlPathGenerator: async (doc) =>
+            `/tags/${doc?.routing?.internalPath}`,
+        },
       },
     }),
   ],

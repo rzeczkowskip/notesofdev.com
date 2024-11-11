@@ -11,7 +11,7 @@ export const { cachedPayloadPlugin, getCachedPayload } = buildCachedPayload({
   collections: [
     ...cachedRoutableCollections.map((slug) => ({
       slug,
-      findOneFields: ['routing.path'],
+      findOneFields: ['routing.internalPath'],
     })),
     ...cachedCollections.map((slug) => ({ slug })),
   ],

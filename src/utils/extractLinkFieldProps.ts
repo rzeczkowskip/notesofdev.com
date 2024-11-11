@@ -1,24 +1,15 @@
-import { CollectionSlug } from 'payload';
 import { LinkField } from '@/payload/custom-types';
-import getCollectionUrlPath from '@/utils/getCollectionUrlPath';
 
 const getCustomLinkHref = (url: LinkField['url']): string => {
   return url || '#';
 };
 
 const getInternalLinkHref = (doc: LinkField['doc']): string => {
-  if (
-    !doc?.value ||
-    typeof doc.value === 'string' ||
-    !doc.value?.routing?.path
-  ) {
+  if (!doc?.value || typeof doc.value === 'string') {
     return '#';
   }
 
-  return getCollectionUrlPath(
-    doc.relationTo as CollectionSlug,
-    doc.value.routing.path,
-  );
+  return doc.value.routing.path;
 };
 
 const extractLinkFieldProps = (link: LinkField) => {

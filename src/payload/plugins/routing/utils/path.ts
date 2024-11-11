@@ -1,7 +1,3 @@
-export const buildPath = (path?: string) => {
-  if (!path) {
-    return path;
-  }
-
-  return `/${path.replace(/\/\//g, '/').replace(/^\/*|\/*$/, '')}`;
+export const normalizePath = (path: string) => {
+  return `/${path.replace(/^\/*|\/*$/g, '').replace(/\/{2,}/g, '/')}`;
 };

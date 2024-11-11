@@ -34,15 +34,33 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
+  collectionsJoins: {};
+  collectionsSelect: {
+    pages: PagesSelect<false> | PagesSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
+    tags: TagsSelect<false> | TagsSelect<true>;
+    admins: AdminsSelect<false> | AdminsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+  };
   db: {
     defaultIDType: string;
   };
   globals: {
     siteConfig: SiteConfig;
   };
+  globalsSelect: {
+    siteConfig: SiteConfigSelect<false> | SiteConfigSelect<true>;
+  };
   locale: 'en';
   user: Admin & {
     collection: 'admins';
+  };
+  jobs?: {
+    tasks: unknown;
+    workflows?: unknown;
   };
 }
 export interface AdminAuthOperations {
@@ -88,7 +106,7 @@ export interface Page {
     [k: string]: unknown;
   } | null;
   seo?: SeoField;
-  routing?: Routing;
+  routing: Routing;
   parent?: (string | null) | Page;
   breadcrumbs?:
     | {
@@ -128,6 +146,7 @@ export interface Media {
   internalTitle?: string | null;
   alt?: string | null;
   source?: string | null;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -159,7 +178,8 @@ export interface Routing {
     value?: string | null;
     auto?: boolean | null;
   };
-  path?: string | null;
+  internalPath?: string | null;
+  path: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -202,7 +222,7 @@ export interface Post {
     [k: string]: unknown;
   } | null;
   seo?: SeoField;
-  routing?: Routing;
+  routing: Routing;
   updatedAt: string;
   createdAt: string;
 }
@@ -215,7 +235,7 @@ export interface Tag {
   internalTitle?: string | null;
   title: string;
   seo?: SeoField;
-  routing?: Routing;
+  routing: Routing;
   updatedAt: string;
   createdAt: string;
 }
@@ -307,6 +327,191 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  internalTitle?: T;
+  title?: T;
+  showTitle?: T;
+  content?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  routing?:
+    | T
+    | {
+        slug?:
+          | T
+          | {
+              value?: T;
+              auto?: T;
+            };
+        internalPath?: T;
+        path?: T;
+      };
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
+  breadcrumbLabelFields?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  internalTitle?: T;
+  alt?: T;
+  source?: T;
+  prefix?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  internalTitle?: T;
+  publishedAt?: T;
+  title?: T;
+  intro?: T;
+  tags?: T;
+  content?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  routing?:
+    | T
+    | {
+        slug?:
+          | T
+          | {
+              value?: T;
+              auto?: T;
+            };
+        internalPath?: T;
+        path?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags_select".
+ */
+export interface TagsSelect<T extends boolean = true> {
+  internalTitle?: T;
+  title?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  routing?:
+    | T
+    | {
+        slug?:
+          | T
+          | {
+              value?: T;
+              auto?: T;
+            };
+        internalPath?: T;
+        path?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "admins_select".
+ */
+export interface AdminsSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents_select".
+ */
+export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences_select".
+ */
+export interface PayloadPreferencesSelect<T extends boolean = true> {
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations_select".
+ */
+export interface PayloadMigrationsSelect<T extends boolean = true> {
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "siteConfig".
  */
 export interface SiteConfig {
@@ -343,6 +548,68 @@ export interface NavLinkItem {
         value: string | Post;
       } | null);
   newTab?: boolean | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "siteConfig_select".
+ */
+export interface SiteConfigSelect<T extends boolean = true> {
+  general?:
+    | T
+    | {
+        title?: T;
+        baseUrl?: T;
+      };
+  nav?:
+    | T
+    | {
+        main?:
+          | T
+          | {
+              label?: T;
+              link?:
+                | T
+                | {
+                    linkType?: T;
+                    url?: T;
+                    doc?: T;
+                    newTab?: T;
+                  };
+              id?: T;
+            };
+        footer?:
+          | T
+          | {
+              label?: T;
+              type?: T;
+              items?:
+                | T
+                | {
+                    label?: T;
+                    link?:
+                      | T
+                      | {
+                          linkType?: T;
+                          url?: T;
+                          doc?: T;
+                          newTab?: T;
+                        };
+                    id?: T;
+                  };
+              link?:
+                | T
+                | {
+                    linkType?: T;
+                    url?: T;
+                    doc?: T;
+                    newTab?: T;
+                  };
+              id?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

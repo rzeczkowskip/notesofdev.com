@@ -1,9 +1,9 @@
 'use client';
 import { useTableCell } from '@payloadcms/ui';
 
-const ListCell = () => {
+const RoutingListCell = () => {
   const { cellData } = useTableCell();
-  return cellData?.slug?.value;
+  return cellData.path;
 };
 
-export default ListCell;
+export default RoutingListCell;

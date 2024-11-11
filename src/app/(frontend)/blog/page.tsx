@@ -5,10 +5,10 @@ import Container from '@/components/Container';
 import PageTitle from '@/components/PageTitle';
 import Pagination from '@/components/Pagination';
 import Section from '@/components/Section';
+import { STATIC_ROUTES } from '@/contants';
 import fetchDocumentByPath from '@/content/fetchDocumentByPath';
 import { getPayload } from '@/payload/client';
 import { Tag } from '@/payload/payload-types';
-import getCollectionUrlPath from '@/utils/getCollectionUrlPath';
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -81,9 +81,7 @@ const Page = async ({ searchParams, tag }: PageProps) => {
                 nextPageLabel={'Older posts'}
                 prevPageLabel={'Newer posts'}
                 page={pageNumber}
-                generatePageHref={(p) =>
-                  `${getCollectionUrlPath('posts')}?page=${p}`
-                }
+                generatePageHref={(p) => `/${STATIC_ROUTES.Blog}/?page=${p}`}
               />
             </Section>
           )}

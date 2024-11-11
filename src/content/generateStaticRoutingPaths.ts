@@ -23,7 +23,7 @@ const generateStaticRoutingPaths = async (
         'routing' in item &&
         item.routing &&
         'path' in item.routing &&
-        typeof item.routing.path === 'string'
+        typeof item.routing.internalPath === 'string'
       );
     })
     .map((item) => {

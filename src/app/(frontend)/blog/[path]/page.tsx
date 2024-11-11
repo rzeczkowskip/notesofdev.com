@@ -16,7 +16,6 @@ import fetchDocumentByPath from '@/content/fetchDocumentByPath';
 import generateMeta from '@/content/generateMeta';
 import generateStaticRoutingPaths from '@/content/generateStaticRoutingPaths';
 import { Post, Tag } from '@/payload/payload-types';
-import getCollectionUrlPath from '@/utils/getCollectionUrlPath';
 
 type PageProps = {
   params: Promise<{
@@ -95,10 +94,7 @@ const Page = async ({ params }: PageProps) => {
                       <li className="flex gap-2" key={relatedPost.id}>
                         <span className="text-primary-11 shrink">&mdash;</span>
                         <Link
-                          href={getCollectionUrlPath(
-                            'posts',
-                            relatedPost?.routing?.path,
-                          )}
+                          href={relatedPost.routing.path}
                           className="hover:underline grow"
                         >
                           {relatedPost.title}
