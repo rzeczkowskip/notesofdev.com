@@ -34,33 +34,15 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
-  collectionsSelect: {
-    pages: PagesSelect<false> | PagesSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
-    posts: PostsSelect<false> | PostsSelect<true>;
-    tags: TagsSelect<false> | TagsSelect<true>;
-    admins: AdminsSelect<false> | AdminsSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
-    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
-    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
-  };
   db: {
     defaultIDType: string;
   };
   globals: {
     siteConfig: SiteConfig;
   };
-  globalsSelect: {
-    siteConfig: SiteConfigSelect<false> | SiteConfigSelect<true>;
-  };
   locale: 'en';
   user: Admin & {
     collection: 'admins';
-  };
-  jobs?: {
-    tasks: unknown;
-    workflows?: unknown;
   };
 }
 export interface AdminAuthOperations {
@@ -327,191 +309,6 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages_select".
- */
-export interface PagesSelect<T extends boolean = true> {
-  internalTitle?: T;
-  title?: T;
-  showTitle?: T;
-  content?: T;
-  seo?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  routing?:
-    | T
-    | {
-        slug?:
-          | T
-          | {
-              value?: T;
-              auto?: T;
-            };
-        internalPath?: T;
-        path?: T;
-      };
-  parent?: T;
-  breadcrumbs?:
-    | T
-    | {
-        doc?: T;
-        url?: T;
-        label?: T;
-        id?: T;
-      };
-  breadcrumbLabelFields?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
- */
-export interface MediaSelect<T extends boolean = true> {
-  internalTitle?: T;
-  alt?: T;
-  source?: T;
-  prefix?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
-  sizes?:
-    | T
-    | {
-        thumbnail?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-      };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts_select".
- */
-export interface PostsSelect<T extends boolean = true> {
-  internalTitle?: T;
-  publishedAt?: T;
-  title?: T;
-  intro?: T;
-  tags?: T;
-  content?: T;
-  seo?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  routing?:
-    | T
-    | {
-        slug?:
-          | T
-          | {
-              value?: T;
-              auto?: T;
-            };
-        internalPath?: T;
-        path?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags_select".
- */
-export interface TagsSelect<T extends boolean = true> {
-  internalTitle?: T;
-  title?: T;
-  seo?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  routing?:
-    | T
-    | {
-        slug?:
-          | T
-          | {
-              value?: T;
-              auto?: T;
-            };
-        internalPath?: T;
-        path?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "admins_select".
- */
-export interface AdminsSelect<T extends boolean = true> {
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-locked-documents_select".
- */
-export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-  document?: T;
-  globalSlug?: T;
-  user?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-preferences_select".
- */
-export interface PayloadPreferencesSelect<T extends boolean = true> {
-  user?: T;
-  key?: T;
-  value?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-migrations_select".
- */
-export interface PayloadMigrationsSelect<T extends boolean = true> {
-  name?: T;
-  batch?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "siteConfig".
  */
 export interface SiteConfig {
@@ -551,72 +348,203 @@ export interface NavLinkItem {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "siteConfig_select".
- */
-export interface SiteConfigSelect<T extends boolean = true> {
-  general?:
-    | T
-    | {
-        title?: T;
-        baseUrl?: T;
-      };
-  nav?:
-    | T
-    | {
-        main?:
-          | T
-          | {
-              label?: T;
-              link?:
-                | T
-                | {
-                    linkType?: T;
-                    url?: T;
-                    doc?: T;
-                    newTab?: T;
-                  };
-              id?: T;
-            };
-        footer?:
-          | T
-          | {
-              label?: T;
-              type?: T;
-              items?:
-                | T
-                | {
-                    label?: T;
-                    link?:
-                      | T
-                      | {
-                          linkType?: T;
-                          url?: T;
-                          doc?: T;
-                          newTab?: T;
-                        };
-                    id?: T;
-                  };
-              link?:
-                | T
-                | {
-                    linkType?: T;
-                    url?: T;
-                    doc?: T;
-                    newTab?: T;
-                  };
-              id?: T;
-            };
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CodeBlock".
  */
 export interface CodeBlock {
-  language?: ('typescript' | 'javascript' | 'css' | 'php' | 'shell' | 'plaintext' | 'yaml') | null;
+  language:
+    | 'plaintext'
+    | 'typescript'
+    | 'javascript'
+    | 'php'
+    | 'dart'
+    | 'yaml'
+    | 'shell'
+    | 'css'
+    | 'html'
+    | '1c'
+    | 'abnf'
+    | 'accesslog'
+    | 'actionscript'
+    | 'ada'
+    | 'angelscript'
+    | 'apache'
+    | 'applescript'
+    | 'arcade'
+    | 'arduino'
+    | 'armasm'
+    | 'xml'
+    | 'asciidoc'
+    | 'aspectj'
+    | 'autohotkey'
+    | 'autoit'
+    | 'avrasm'
+    | 'awk'
+    | 'axapta'
+    | 'bash'
+    | 'basic'
+    | 'bnf'
+    | 'brainfuck'
+    | 'c'
+    | 'cal'
+    | 'capnproto'
+    | 'ceylon'
+    | 'clean'
+    | 'clojure'
+    | 'clojure-repl'
+    | 'cmake'
+    | 'coffeescript'
+    | 'coq'
+    | 'cos'
+    | 'cpp'
+    | 'crmsh'
+    | 'crystal'
+    | 'csharp'
+    | 'csp'
+    | 'd'
+    | 'markdown'
+    | 'delphi'
+    | 'diff'
+    | 'django'
+    | 'dns'
+    | 'dockerfile'
+    | 'dos'
+    | 'dsconfig'
+    | 'dts'
+    | 'dust'
+    | 'ebnf'
+    | 'elixir'
+    | 'elm'
+    | 'ruby'
+    | 'erb'
+    | 'erlang-repl'
+    | 'erlang'
+    | 'excel'
+    | 'fix'
+    | 'flix'
+    | 'fortran'
+    | 'fsharp'
+    | 'gams'
+    | 'gauss'
+    | 'gcode'
+    | 'gherkin'
+    | 'glsl'
+    | 'gml'
+    | 'go'
+    | 'golo'
+    | 'gradle'
+    | 'graphql'
+    | 'groovy'
+    | 'haml'
+    | 'handlebars'
+    | 'haskell'
+    | 'haxe'
+    | 'hsp'
+    | 'http'
+    | 'hy'
+    | 'inform7'
+    | 'ini'
+    | 'irpf90'
+    | 'isbl'
+    | 'java'
+    | 'jboss-cli'
+    | 'json'
+    | 'julia'
+    | 'julia-repl'
+    | 'kotlin'
+    | 'lasso'
+    | 'latex'
+    | 'ldif'
+    | 'leaf'
+    | 'less'
+    | 'lisp'
+    | 'livecodeserver'
+    | 'livescript'
+    | 'llvm'
+    | 'lsl'
+    | 'lua'
+    | 'makefile'
+    | 'mathematica'
+    | 'matlab'
+    | 'maxima'
+    | 'mel'
+    | 'mercury'
+    | 'mipsasm'
+    | 'mizar'
+    | 'perl'
+    | 'mojolicious'
+    | 'monkey'
+    | 'moonscript'
+    | 'n1ql'
+    | 'nestedtext'
+    | 'nginx'
+    | 'nim'
+    | 'nix'
+    | 'node-repl'
+    | 'nsis'
+    | 'objectivec'
+    | 'ocaml'
+    | 'openscad'
+    | 'oxygene'
+    | 'parser3'
+    | 'pf'
+    | 'pgsql'
+    | 'php-template'
+    | 'pony'
+    | 'powershell'
+    | 'processing'
+    | 'profile'
+    | 'prolog'
+    | 'properties'
+    | 'protobuf'
+    | 'puppet'
+    | 'purebasic'
+    | 'python'
+    | 'python-repl'
+    | 'q'
+    | 'qml'
+    | 'r'
+    | 'reasonml'
+    | 'rib'
+    | 'roboconf'
+    | 'routeros'
+    | 'rsl'
+    | 'ruleslanguage'
+    | 'rust'
+    | 'sas'
+    | 'scala'
+    | 'scheme'
+    | 'scilab'
+    | 'scss'
+    | 'smali'
+    | 'smalltalk'
+    | 'sml'
+    | 'sqf'
+    | 'sql'
+    | 'stan'
+    | 'stata'
+    | 'step21'
+    | 'stylus'
+    | 'subunit'
+    | 'swift'
+    | 'taggerscript'
+    | 'tap'
+    | 'tcl'
+    | 'thrift'
+    | 'tp'
+    | 'twig'
+    | 'vala'
+    | 'vbnet'
+    | 'vbscript'
+    | 'vbscript-html'
+    | 'verilog'
+    | 'vhdl'
+    | 'vim'
+    | 'wasm'
+    | 'wren'
+    | 'x86asm'
+    | 'xl'
+    | 'xquery'
+    | 'zephir';
   code?: string | null;
   id?: string | null;
   blockName?: string | null;
@@ -655,6 +583,31 @@ export interface LatestPostsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'latestPosts';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CalloutBlock".
+ */
+export interface CalloutBlock {
+  type?: 'info' | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'callout';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

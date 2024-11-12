@@ -1,5 +1,6 @@
-import Prose from '@/components/Prose';
-import { CodeBlock } from '@/payload/payload-types';
+import CodeBlockComponent from '@/components/CodeBlock/CodeBlock';
+
+import type { CodeBlock } from '@/payload/payload-types';
 
 type CodeProps = {
   block: CodeBlock;
@@ -11,9 +12,12 @@ const Code = ({ block }: CodeProps) => {
   }
 
   return (
-    <pre>
-      <code>{block.code}</code>
-    </pre>
+    <CodeBlockComponent
+      code={block.code}
+      language={block.language}
+      lineNumbers={block.language !== 'shell'}
+      copy={block.language !== 'shell'}
+    />
   );
 };
 

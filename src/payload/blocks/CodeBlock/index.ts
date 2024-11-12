@@ -1,34 +1,8 @@
-import type { Block, OptionObject } from 'payload';
+import type { Block } from 'payload';
+import { hljs, promotedLanguages } from '@/lib/hljs';
 
-const languages: OptionObject[] = [
-  {
-    label: 'Typescript',
-    value: 'typescript',
-  },
-  {
-    label: 'Javascript',
-    value: 'javascript',
-  },
-  {
-    label: 'CSS',
-    value: 'css',
-  },
-  {
-    label: 'PHP',
-    value: 'php',
-  },
-  {
-    label: 'Shell',
-    value: 'shell',
-  },
-  {
-    label: 'Plain text',
-    value: 'plaintext',
-  },
-  {
-    label: 'YAML',
-    value: 'yaml',
-  },
+const languages: string[] = [
+  ...new Set([...promotedLanguages, ...hljs.listLanguages()]),
 ];
 
 const Index: Block = {
@@ -38,8 +12,9 @@ const Index: Block = {
     {
       name: 'language',
       type: 'select',
-      defaultValue: languages[0].value,
+      defaultValue: languages[0],
       options: languages,
+      required: true,
     },
     {
       name: 'code',
