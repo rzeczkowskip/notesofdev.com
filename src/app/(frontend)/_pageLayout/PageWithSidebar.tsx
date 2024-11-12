@@ -16,7 +16,7 @@ const PageWithSidebar = async ({
   const client = await getPayload();
   const tags = await client.find({
     collection: 'tags',
-    sort: '-title',
+    sort: 'title',
     depth: 0,
   });
 
