@@ -1,3 +1,4 @@
+import Prose from '@/components/Prose';
 import { CodeBlock } from '@/payload/payload-types';
 
 type CodeProps = {

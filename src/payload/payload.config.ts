@@ -5,6 +5,7 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb';
 import { buildConfig, CollectionSlug } from 'payload';
 import sharp from 'sharp';
 
+import CalloutBlock from '@/payload/blocks/CalloutBlock';
 import CodeBlock from '@/payload/blocks/CodeBlock';
 import LatestPostsBlock from '@/payload/blocks/LatestPostsBlock';
 import { cachedPayloadPlugin } from '@/payload/cache';
@@ -66,7 +67,7 @@ export default buildConfig({
         withLabel: false,
       },
     ),
-    blocks: [CodeBlock, LatestPostsBlock],
+    blocks: [CodeBlock, LatestPostsBlock, CalloutBlock],
   }),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
