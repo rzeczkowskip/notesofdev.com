@@ -31,6 +31,21 @@ export default ContentCollection(
         },
       },
       {
+        name: 'poster',
+        type: 'upload',
+        label: 'Poster',
+        relationTo: 'media',
+        required: false,
+        localized: true,
+        filterOptions: {
+          mimeType: { contains: 'image/' },
+        },
+        admin: {
+          disableListFilter: true,
+          disableListColumn: true,
+        },
+      },
+      {
         name: 'tags',
         type: 'relationship',
         hasMany: true,

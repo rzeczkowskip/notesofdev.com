@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import FullPage from '@/app/(frontend)/_pageLayout/FullPage';
@@ -37,6 +38,16 @@ const PostHeader = ({ post }: { post: Post }) => {
       <Prose className="text-gray-11 grow" small>
         <RichText content={post.intro} />
       </Prose>
+
+      {post.poster && typeof post.poster === 'object' && (
+        <Image
+          src={post.poster.url!}
+          alt=""
+          width={post.poster.width!}
+          height={post.poster.height!}
+          className="mx-auto"
+        />
+      )}
     </div>
   );
 };

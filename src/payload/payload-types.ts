@@ -187,6 +187,7 @@ export interface Post {
     };
     [k: string]: unknown;
   } | null;
+  poster?: (string | null) | Media;
   tags?: (string | Tag)[] | null;
   content?: {
     root: {
