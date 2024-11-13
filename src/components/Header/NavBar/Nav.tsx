@@ -13,7 +13,7 @@ const Nav: React.FC<NavProps> = ({ items }) => (
       link ? (
         <Link
           key={`${id}`}
-          className={'lg:py-2 hover:underline hover:text-primary-11'}
+          className={'hover:underline hover:text-primary-11'}
           {...extractLinkFieldProps(link)}
         >
           {label}

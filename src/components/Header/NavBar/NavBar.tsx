@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import React, { PropsWithChildren, useEffect, useState } from 'react';
+import React, { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import NavToggle from '@/components/Header/NavBar/NavToggle';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 
@@ -11,6 +11,7 @@ type NavProps = PropsWithChildren<{
 
 const NavBar: React.FC<NavProps> = ({ children, toggleAriaLabel }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef(null);
 
   const toggleNav = () => {
     setIsOpen(!isOpen);
@@ -22,7 +23,7 @@ const NavBar: React.FC<NavProps> = ({ children, toggleAriaLabel }) => {
     }
   };
 
-  const ref = useOnClickOutside(closeNav);
+  useOnClickOutside(ref, closeNav);
   const pathname = usePathname();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -3,6 +3,7 @@ import Container from '@/components/Container';
 import Nav from '@/components/Header/NavBar/Nav';
 import NavBar from '@/components/Header/NavBar/NavBar';
 import Logo from '@/components/Logo/Logo';
+import ThemeSwitcher from '@/components/ThemeSwitcher';
 import { Nav as SiteNav } from '@/payload/payload-types';
 import cn from '@/utils/cn';
 
@@ -23,6 +24,7 @@ const Header = ({ nav }: HeaderProps) => {
 
         {nav && nav.length > 0 && (
           <NavBar toggleAriaLabel="Toggle menu">
+            <ThemeSwitcher className="mt-0.5" />
             <Nav items={nav} />
           </NavBar>
         )}

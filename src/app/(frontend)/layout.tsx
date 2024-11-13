@@ -2,6 +2,7 @@ import '@/app/(frontend)/app.css';
 import { Metadata } from 'next';
 import { Bitter, Mulish } from 'next/font/google';
 import Link from 'next/link';
+import { ThemeProvider } from 'next-themes';
 import Container from '@/components/Container';
 import Header from '@/components/Header/Header';
 import { getPayload } from '@/payload/client';
@@ -33,25 +34,30 @@ const Layout: React.FC<{ children: React.ReactNode }> = async ({
   const siteConfig = await getSiteConfig();
 
   return (
-    <html className={cn(fontSerif.variable, fontSans.variable, 'font-sans')}>
+    <html
+      className={cn(fontSerif.variable, fontSans.variable, 'font-sans')}
+      suppressHydrationWarning
+    >
       <body>
-        <Header nav={siteConfig.nav?.main} />
+        <ThemeProvider attribute="class">
+          <Header nav={siteConfig.nav?.main} />
 
-        {children}
+          {children}
 
-        <footer className="mb-8 pt-8 border-t border-gray-6">
-          <Container>
-            <p className="text-center">
-              Copyright &copy;{' '}
-              <Link
-                href="/"
-                className=" underline text-primary-11 hover:text-primary-12"
-              >
-                {siteConfig?.general.title}
-              </Link>
-            </p>
-          </Container>
-        </footer>
+          <footer className="mb-8 pt-8 border-t border-gray-6">
+            <Container>
+              <p className="text-center">
+                Copyright &copy;{' '}
+                <Link
+                  href="/"
+                  className=" underline text-primary-11 hover:text-primary-12"
+                >
+                  {siteConfig?.general.title}
+                </Link>
+              </p>
+            </Container>
+          </footer>
+        </ThemeProvider>
       </body>
     </html>
   );
