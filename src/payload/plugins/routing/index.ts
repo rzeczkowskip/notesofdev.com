@@ -54,7 +54,11 @@ const routingPlugin =
           ...collection,
           fields: getCollectionFields(collection, collectionRoutingConfig),
           hooks: {
-            beforeValidate: [beforeValidate(collectionRoutingConfig)],
+            ...(collection?.hooks || {}),
+            beforeValidate: [
+              ...(collection?.hooks?.beforeValidate || []),
+              beforeValidate(collectionRoutingConfig),
+            ],
           },
         };
       }),
