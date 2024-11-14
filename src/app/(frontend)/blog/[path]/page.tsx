@@ -13,9 +13,7 @@ import Section from '@/components/Section';
 import TagsList from '@/components/TagsList/TagsList';
 import fetchBlogPosts from '@/content/fetchBlogPosts';
 import fetchDocumentByPath from '@/content/fetchDocumentByPath';
-
 import generateMeta from '@/content/generateMeta';
-import generateStaticRoutingPaths from '@/content/generateStaticRoutingPaths';
 import { Post, Tag } from '@/payload/payload-types';
 
 type PageProps = {
@@ -127,7 +125,5 @@ export const generateMetadata = async ({
   params,
 }: PageProps): Promise<Metadata> =>
   generateMeta('posts', await getPost(params));
-
-export const generateStaticParams = () => generateStaticRoutingPaths('posts');
 
 export default Page;

@@ -11,6 +11,8 @@ import Prose from '@/components/Prose';
 import { STATIC_ROUTES } from '@/contants';
 import { getPayload } from '@/payload/client';
 
+export const dynamic = 'force-dynamic';
+
 const Page = async () => {
   const client = await getPayload();
   const { docs } = await client.find({

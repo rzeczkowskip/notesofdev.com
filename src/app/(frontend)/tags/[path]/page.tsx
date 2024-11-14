@@ -4,7 +4,6 @@ import Blog from '@/app/(frontend)/blog/page';
 import fetchDocumentByPath from '@/content/fetchDocumentByPath';
 
 import generateMeta from '@/content/generateMeta';
-import generateStaticRoutingPaths from '@/content/generateStaticRoutingPaths';
 
 type PageProps = {
   params: Promise<{
@@ -16,8 +15,6 @@ type PageProps = {
 const getTag = async (params: PageProps['params']) => {
   return fetchDocumentByPath('tags', (await params).path);
 };
-
-export const generateStaticParams = () => generateStaticRoutingPaths('tags');
 
 const Page = async ({ params, searchParams }: PageProps) => {
   const tag = await getTag(params);

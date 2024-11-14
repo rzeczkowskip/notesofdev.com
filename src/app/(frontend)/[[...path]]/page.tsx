@@ -7,7 +7,6 @@ import Prose from '@/components/Prose';
 import RichText from '@/components/RichText/RichText';
 import fetchDocumentByPath from '@/content/fetchDocumentByPath';
 import generateMeta from '@/content/generateMeta';
-import generateStaticRoutingPaths from '@/content/generateStaticRoutingPaths';
 
 type PageProps = {
   params: Promise<{
@@ -43,10 +42,5 @@ export const generateMetadata = async ({
   params,
 }: PageProps): Promise<Metadata> =>
   generateMeta('pages', await getPage(params));
-
-export const generateStaticParams = () =>
-  generateStaticRoutingPaths('pages', {
-    pathAsArray: true,
-  });
 
 export default Page;
