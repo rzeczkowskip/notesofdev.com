@@ -80,7 +80,11 @@ export default ContentCollection(
         fields: [
           seo(
             { name: 'seo', label: false },
-            { mediaCollection: 'media', generateTitleFrom: 'title' },
+            {
+              mediaCollection: 'media',
+              generateTitleFrom: 'title',
+              copyImageFrom: 'poster',
+            },
           ),
         ],
       },

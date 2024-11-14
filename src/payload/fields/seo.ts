@@ -1,5 +1,5 @@
 import merge from 'lodash/merge';
-import type { CollectionSlug, FieldBase, GroupField } from 'payload';
+import type { CollectionSlug, FieldBase, FieldHook, GroupField } from 'payload';
 import { CustomField } from './types';
 
 type Options = {
@@ -10,7 +10,23 @@ type Options = {
     image: FieldBase['label'];
   };
   generateTitleFrom?: string;
+  copyImageFrom?: string;
 };
+
+const generatedDataHook =
+  (options: Partial<Options>): FieldHook =>
+  ({ data }) => {
+    return {
+      title:
+        data?.seo?.title ||
+        (options.generateTitleFrom && data?.[options.generateTitleFrom]),
+      description: data?.seo?.description || '',
+      image:
+        data?.seo?.image ||
+        (options.copyImageFrom && data?.[options.copyImageFrom]) ||
+        null,
+    };
+  };
 
 const seo: CustomField<GroupField, Options> = (
   overrides,
@@ -22,17 +38,7 @@ const seo: CustomField<GroupField, Options> = (
       name: 'title',
       label: options?.labels?.title,
       maxLength: 60,
-      hooks: {
-        beforeChange: [
-          ({ value, data }) => {
-            if (options?.generateTitleFrom) {
-              return value || data?.[options.generateTitleFrom];
-            }
-
-            return value;
-          },
-        ],
-      },
+      required: !options.generateTitleFrom,
     },
     {
       type: 'textarea',
@@ -53,6 +59,28 @@ const seo: CustomField<GroupField, Options> = (
       },
     });
   }
+
+  fields.push({
+    type: 'group',
+    name: 'generated',
+    admin: {
+      readOnly: true,
+      hidden: true,
+    },
+    hooks: {
+      afterRead: [generatedDataHook(options)],
+    },
+    fields: [
+      { type: 'text', name: 'title' },
+      { type: 'text', name: 'description' },
+      {
+        type: 'upload',
+        name: 'image',
+        required: false,
+        relationTo: options.mediaCollection as CollectionSlug,
+      },
+    ],
+  });
 
   return {
     ...overrides,

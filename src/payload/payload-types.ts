@@ -118,6 +118,11 @@ export interface SeoField {
   title?: string | null;
   description?: string | null;
   image?: (string | null) | Media;
+  generated?: {
+    title?: string | null;
+    description?: string | null;
+    image?: (string | null) | Media;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
