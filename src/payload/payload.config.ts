@@ -33,6 +33,12 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    dependencies: {
+      treeView: {
+        path: '@payloadcms/richtext-lexical/client#TreeViewFeatureClient',
+        type: 'component',
+      },
+    },
   },
   defaultDepth: 10,
   maxDepth: 20,
