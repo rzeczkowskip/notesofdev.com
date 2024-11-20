@@ -12,6 +12,7 @@ import { cachedPayloadPlugin } from '@/payload/cache';
 import Admins from '@/payload/collections/Admins';
 import Media from '@/payload/collections/Media';
 import Pages from '@/payload/collections/Pages';
+import Projects from '@/payload/collections/Projects';
 import Posts from '@/payload/collections/blog/Posts';
 import Tags from '@/payload/collections/blog/Tags';
 import { INTERNAL_LINK_COLLECTIONS } from '@/payload/contants';
@@ -54,6 +55,7 @@ export default buildConfig({
       group: 'Blog',
       items: [Posts, Tags],
     },
+    { items: [Projects] },
     {
       group: 'System',
       items: [Admins],
@@ -109,6 +111,12 @@ export default buildConfig({
           hierarchical: false,
           urlPathGenerator: async (doc) =>
             `/tags/${doc?.routing?.internalPath}`,
+        },
+        projects: {
+          slugFields: ['name'],
+          hierarchical: false,
+          urlPathGenerator: async (doc) =>
+            `/projects/${doc?.routing?.internalPath}`,
         },
       },
     }),

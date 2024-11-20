@@ -3,7 +3,12 @@ import { revalidateTag, unstable_cache } from 'next/cache';
 import { CollectionSlug, DataFromCollectionSlug, GlobalSlug } from 'payload';
 import { APP_DEBUG, DISABLE_CACHE } from '@/payload/contants';
 
-const cachedRoutableCollections: CollectionSlug[] = ['posts', 'pages', 'tags'];
+const cachedRoutableCollections: CollectionSlug[] = [
+  'posts',
+  'pages',
+  'tags',
+  'projects',
+];
 const cachedCollections: CollectionSlug[] = ['media'];
 const cachedGlobals: GlobalSlug[] = ['siteConfig'];
 

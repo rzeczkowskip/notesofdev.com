@@ -11,4 +11,5 @@ export const INTERNAL_LINK_COLLECTIONS: CollectionSlug[] = [
   'pages',
   'tags',
   'posts',
+  'projects',
 ];
