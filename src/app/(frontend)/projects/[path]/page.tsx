@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import PageWithSidebar from '@/app/(frontend)/_pageLayout/PageWithSidebar';
 import Container from '@/components/Container';
@@ -29,7 +30,14 @@ const Page = async ({ params }: PageProps) => {
     <Container>
       <PageWithSidebar>
         <PageTitle>{project.name}</PageTitle>
-
+        {project.url && (
+          <Prose small className="font-sans my-8">
+            Project url:{' '}
+            <Link href={project.url} target="_blank">
+              {project.url}
+            </Link>
+          </Prose>
+        )}
         <Prose>
           <RichText content={project.description} />
         </Prose>
