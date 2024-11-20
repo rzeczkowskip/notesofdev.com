@@ -15,10 +15,7 @@ const generateMeta = async <T extends CollectionSlug>(
   ).findGlobal({ slug: 'siteConfig' });
 
   const ogImage = typeof seo?.image === 'object' ? seo?.image?.url : undefined;
-  const title =
-    seo?.title && seo?.title !== siteConfig.general.title
-      ? `${seo.title} | ${siteConfig.general.title}`
-      : siteConfig.general.title;
+  const title = seo?.title && seo?.title ? seo.title : undefined;
   const description = seo?.description || undefined;
 
   return {

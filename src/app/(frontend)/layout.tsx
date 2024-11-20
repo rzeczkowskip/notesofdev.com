@@ -68,14 +68,12 @@ export default Layout;
 export const generateMetadata = async (): Promise<Metadata> => {
   const siteConfig = await getSiteConfig();
 
+  const title = {
+    default: 'Home',
+    template: `%s | ${siteConfig?.general?.title}`,
+  };
+
   return {
-    metadataBase: new URL(
-      process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
-    ),
-    openGraph: {
-      siteName: siteConfig?.general?.title,
-      title: siteConfig?.general?.title,
-    },
-    title: siteConfig?.general?.title,
+    title,
   };
 };
