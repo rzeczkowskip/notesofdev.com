@@ -25,6 +25,7 @@ const fontSans = Mulish({
 const getSiteConfig = async () => {
   const client = await getPayload();
 
+  // @ts-expect-error cache plugin issue
   return await client.findGlobal({ slug: 'siteConfig' });
 };
 

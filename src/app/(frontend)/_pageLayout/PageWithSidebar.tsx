@@ -1,8 +1,10 @@
+import { PaginatedDocs } from 'payload';
 import React, { PropsWithChildren } from 'react';
 import ProjectsList from '@/components/ProjectsList/ProjectsList';
 import Section from '@/components/Section';
 import TagsList from '@/components/TagsList/TagsList';
 import { getPayload } from '@/payload/client';
+import { Project, Tag } from '@/payload/payload-types';
 import cn from '@/utils/cn';
 
 type PageWithSidebarProps = PropsWithChildren<{
@@ -14,13 +16,15 @@ const PageWithSidebar = async ({
   className,
 }: PageWithSidebarProps) => {
   const client = await getPayload();
-  const tags = await client.find({
+  // @ts-expect-error cache plugin issue
+  const tags: PaginatedDocs<Tag> = await client.find({
     collection: 'tags',
     sort: 'title',
     depth: 0,
   });
 
-  const featuredProjects = await client.find({
+  // @ts-expect-error cache plugin issue
+  const featuredProjects: PaginatedDocs<Project> = await client.find({
     collection: 'projects',
     sort: 'title',
     depth: 0,

@@ -42,6 +42,7 @@ const fetchBlogPosts = async (
     });
   }
 
+  // @ts-expect-error cache plugin issue
   return client.find({
     collection: 'posts',
     sort: '-publishedAt',

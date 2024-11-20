@@ -9,6 +9,7 @@ const generateStaticRoutingPaths = async (
   },
 ) => {
   const payload = await getPayload();
+  // @ts-expect-error cache plugin issue
   const items = await payload.find({
     collection,
     draft: false,

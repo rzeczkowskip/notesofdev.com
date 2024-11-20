@@ -12,6 +12,7 @@ const fetchDocumentByPath = async <T extends CollectionSlug>(
 
   const client = await getPayload();
 
+  // @ts-expect-error cache plugin issue
   return client.findOne({
     collection,
     field: 'routing.internalPath',

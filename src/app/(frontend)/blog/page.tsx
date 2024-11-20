@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { PaginatedDocs } from 'payload';
 import Page from '@/app/(frontend)/[[...path]]/page';
 import BlogPostsList from '@/components/BlogPostsList/BlogPostsList';
 import Pagination from '@/components/Pagination';
@@ -6,6 +7,8 @@ import Section from '@/components/Section';
 import { STATIC_ROUTES } from '@/contants';
 import { getPayload } from '@/payload/client';
 import { Tag } from '@/payload/payload-types';
+import { Post, Tag } from '@/payload/payload-types';
+
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -44,13 +47,14 @@ const Blog = async ({ searchParams, tag }: PageProps) => {
     hasNextPage,
     hasPrevPage,
     docs: posts,
-  } = await client.find({
+    // @ts-expect-error cache plugin issue
+  } = (await client.find({
     collection: 'posts',
     sort: '-publishedAt',
     limit: 20,
     page: pageNumber,
     where,
-  });
+  })) as PaginatedDocs<Post>;
 
   if (pageNumber && totalPages < pageNumber) {
     return notFound();

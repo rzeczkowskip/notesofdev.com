@@ -1,5 +1,6 @@
 import { ArrowRightIcon } from '@heroicons/react/24/solid';
 import { notFound } from 'next/navigation';
+import { PaginatedDocs } from 'payload';
 import Page from '@/app/(frontend)/[[...path]]/page';
 import BlogLatestPosts from '@/components/BlogLatestPosts/BlogLatestPosts';
 import CtaLink from '@/components/CtaLink/CtaLink';
@@ -7,16 +8,18 @@ import Section from '@/components/Section';
 import TagsList from '@/components/TagsList/TagsList';
 import { STATIC_ROUTES } from '@/contants';
 import { getPayload } from '@/payload/client';
+import { Tag } from '@/payload/payload-types';
 
 export const dynamic = 'force-dynamic';
 
 const TagsPage = async () => {
   const client = await getPayload();
-  const { docs } = await client.find({
+  // @ts-expect-error cache plugin issue
+  const { docs } = (await client.find({
     collection: 'tags',
     sort: 'title',
     limit: -1,
-  });
+  })) as PaginatedDocs<Tag>;
 
   if (docs.length === 0) {
     return notFound();
