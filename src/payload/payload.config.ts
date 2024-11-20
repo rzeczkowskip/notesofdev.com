@@ -73,6 +73,7 @@ export default buildConfig({
       {},
       {
         withLabel: false,
+        withSelfLink: true,
       },
     ),
     blocks: [CodeBlock, LatestPostsBlock, CalloutBlock],

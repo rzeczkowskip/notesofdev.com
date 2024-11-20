@@ -134,6 +134,7 @@ export interface Media {
   internalTitle?: string | null;
   alt?: string | null;
   source?: string | null;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;

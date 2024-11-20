@@ -41,8 +41,14 @@ const Image = ({
     return image;
   }
 
+  const { href, ...linkProps } = extractLinkFieldProps(link);
+
   return (
-    <Link {...extractLinkFieldProps(link)} className="prose-img:my-0">
+    <Link
+      href={link.linkType === 'self' ? value.url! : href}
+      {...linkProps}
+      className="prose-img:my-0"
+    >
       {image}
     </Link>
   );

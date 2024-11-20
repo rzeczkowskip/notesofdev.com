@@ -1,11 +1,12 @@
 import merge from 'lodash/merge';
-import type { CollectionSlug, GroupField } from 'payload';
+import type { CollectionSlug, GroupField, Option } from 'payload';
 import { INTERNAL_LINK_COLLECTIONS } from '@/payload/contants';
 import { CustomField } from '@/payload/fields/types';
 
 type LinkFieldOptions = {
   withLabel: boolean;
   internalLinkCollections: CollectionSlug[];
+  withSelfLink?: boolean;
 };
 
 const LinkType = {
@@ -17,6 +18,10 @@ const LinkType = {
     label: 'Internal link',
     value: 'internal',
   },
+  Self: {
+    label: 'Link to self',
+    value: 'self',
+  },
 };
 
 const link: CustomField<GroupField, LinkFieldOptions> = (
@@ -25,6 +30,7 @@ const link: CustomField<GroupField, LinkFieldOptions> = (
 ): GroupField => {
   const config: LinkFieldOptions = {
     withLabel: true,
+    withSelfLink: false,
     internalLinkCollections:
       options?.internalLinkCollections || INTERNAL_LINK_COLLECTIONS,
     ...options,
@@ -33,6 +39,12 @@ const link: CustomField<GroupField, LinkFieldOptions> = (
   const hasInternalLink = config.internalLinkCollections?.length > 0;
 
   const fields: GroupField['fields'] = [];
+
+  const availableLinkTypes: Option[] = [
+    LinkType.Custom,
+    hasInternalLink && LinkType.Internal,
+    config.withSelfLink && LinkType.Self,
+  ].filter(Boolean) as Option[];
 
   if (config.withLabel) {
     fields.push({
@@ -55,9 +67,7 @@ const link: CustomField<GroupField, LinkFieldOptions> = (
           admin: {
             layout: 'horizontal',
           },
-          options: hasInternalLink
-            ? Object.values(LinkType)
-            : [LinkType.Custom],
+          options: availableLinkTypes,
           defaultValue: LinkType.Custom.value,
         },
       ],
