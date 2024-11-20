@@ -1,12 +1,9 @@
 import { notFound } from 'next/navigation';
-import PageWithSidebar from '@/app/(frontend)/_pageLayout/PageWithSidebar';
+import Page from '@/app/(frontend)/[[...path]]/page';
 import BlogPostsList from '@/components/BlogPostsList/BlogPostsList';
-import Container from '@/components/Container';
-import PageTitle from '@/components/PageTitle';
 import Pagination from '@/components/Pagination';
 import Section from '@/components/Section';
 import { STATIC_ROUTES } from '@/contants';
-import fetchDocumentByPath from '@/content/fetchDocumentByPath';
 import { getPayload } from '@/payload/client';
 import { Tag } from '@/payload/payload-types';
 
@@ -29,7 +26,7 @@ const parsePageNumber = (value: unknown): number => {
   return asInt;
 };
 
-const Page = async ({ searchParams, tag }: PageProps) => {
+const Blog = async ({ searchParams, tag }: PageProps) => {
   const params = await searchParams;
   const pageNumber = parsePageNumber(params.page);
 
@@ -59,19 +56,15 @@ const Page = async ({ searchParams, tag }: PageProps) => {
     return notFound();
   }
 
-  const page = tag ? null : await fetchDocumentByPath('pages', '/blog');
-
   return (
-    <Container>
-      <PageWithSidebar>
-        {page?.showTitle !== false && (
-          <PageTitle>
-            {page?.title || (tag ? `#${tag.title}` : 'Blog')}
-          </PageTitle>
-        )}
-        <div className="grid grid-cols-1 gap-16">
-          {posts && (
-            <Section title="Posts">
+    <Page
+      customPage
+      params={Promise.resolve({ path: [STATIC_ROUTES.Blog] })}
+      pageTitle={tag ? `#${tag.title}` : 'Blog'}
+      beforeContent={
+        posts && (
+          <div className="grid grid-cols-1 gap-16">
+            <Section>
               <BlogPostsList posts={posts} />
 
               <Pagination
@@ -84,11 +77,11 @@ const Page = async ({ searchParams, tag }: PageProps) => {
                 generatePageHref={(p) => `/${STATIC_ROUTES.Blog}/?page=${p}`}
               />
             </Section>
-          )}
-        </div>
-      </PageWithSidebar>
-    </Container>
+          </div>
+        )
+      }
+    />
   );
 };
 
-export default Page;
+export default Blog;

@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import React from 'react';
 import PageWithSidebar from '@/app/(frontend)/_pageLayout/PageWithSidebar';
 import Container from '@/components/Container';
 import PageTitle from '@/components/PageTitle';
@@ -12,27 +13,47 @@ type PageProps = {
   params: Promise<{
     path?: string[];
   }>;
+  beforeContent?: React.ReactNode;
+  afterContent?: React.ReactNode;
+  pageTitle?: string;
+  customPage?: boolean;
 };
 
 const getPage = async (params: PageProps['params']) => {
   return fetchDocumentByPath('pages', (await params).path || []);
 };
 
-const Page = async ({ params }: PageProps) => {
+const Page = async ({
+  params,
+  beforeContent,
+  afterContent,
+  pageTitle,
+  customPage,
+}: PageProps) => {
   const page = await getPage(params);
 
-  if (!page) {
+  if (!customPage && !page) {
     return notFound();
   }
 
+  const title = page?.showTitle === false ? null : page?.title || pageTitle;
+
   return (
     <Container>
-      <PageWithSidebar pageTitle={page.showTitle && page.title}>
-        {page.showTitle && <PageTitle>{page.title}</PageTitle>}
+      <PageWithSidebar>
+        {title && <PageTitle>{title}</PageTitle>}
 
-        <Prose>
-          <RichText content={page.content} />
-        </Prose>
+        <div className="grid grid-cols-1 gap-8">
+          {beforeContent}
+
+          {page && (
+            <Prose>
+              <RichText content={page.content} />
+            </Prose>
+          )}
+
+          {afterContent}
+        </div>
       </PageWithSidebar>
     </Container>
   );

@@ -1,12 +1,10 @@
-import PageWithSidebar from '@/app/(frontend)/_pageLayout/PageWithSidebar';
-import Container from '@/components/Container';
-import PageTitle from '@/components/PageTitle';
+import Page from '@/app/(frontend)/[[...path]]/page';
 import ProjectsList from '@/components/ProjectsList/ProjectsList';
 import Section from '@/components/Section';
-import fetchDocumentByPath from '@/content/fetchDocumentByPath';
+import { STATIC_ROUTES } from '@/contants';
 import { getPayload } from '@/payload/client';
 
-const Page = async () => {
+const Projects = async () => {
   const client = await getPayload();
   const { docs: projects } = await client.find({
     collection: 'projects',
@@ -15,24 +13,24 @@ const Page = async () => {
     pagination: false,
   });
 
-  const page = await fetchDocumentByPath('pages', '/projects');
-
   return (
-    <Container>
-      <PageWithSidebar>
-        {page?.showTitle !== false && (
-          <PageTitle>{page?.title || 'Projects'}</PageTitle>
-        )}
-        <div className="grid grid-cols-1 gap-16">
-          {projects && (
-            <Section>
-              <ProjectsList projects={projects} />
-            </Section>
-          )}
-        </div>
-      </PageWithSidebar>
-    </Container>
+    <Page
+      customPage
+      params={Promise.resolve({ path: [STATIC_ROUTES.Projects] })}
+      pageTitle={'Projects'}
+      beforeContent={
+        projects && (
+          <div className="grid grid-cols-1 gap-16">
+            {projects && (
+              <Section>
+                <ProjectsList projects={projects} />
+              </Section>
+            )}
+          </div>
+        )
+      }
+    />
   );
 };
 
-export default Page;
+export default Projects;
