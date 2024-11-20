@@ -6,6 +6,7 @@ import { STATIC_ROUTES } from '@/contants';
 import { getPayload } from '@/payload/client';
 import { Project } from '@/payload/payload-types';
 
+export const dynamic = 'force-dynamic';
 
 const Projects = async () => {
   const client = await getPayload();

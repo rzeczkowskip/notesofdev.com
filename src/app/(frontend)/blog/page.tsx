@@ -6,9 +6,9 @@ import Pagination from '@/components/Pagination';
 import Section from '@/components/Section';
 import { STATIC_ROUTES } from '@/contants';
 import { getPayload } from '@/payload/client';
-import { Tag } from '@/payload/payload-types';
 import { Post, Tag } from '@/payload/payload-types';
 
+export const dynamic = 'force-dynamic';
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
