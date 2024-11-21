@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import FullPage from '@/app/(frontend)/_pageLayout/FullPage';
 import Card from '@/components/Card';
 import Container from '@/components/Container';
+import MediaImage from '@/components/MediaImage';
 import PageTitle from '@/components/PageTitle';
 import PostDate from '@/components/PostDate';
 import Prose from '@/components/Prose';
@@ -38,13 +39,7 @@ const PostHeader = ({ post }: { post: Post }) => {
       </Prose>
 
       {post.poster && typeof post.poster === 'object' && (
-        <Image
-          src={post.poster.url!}
-          alt=""
-          width={post.poster.width!}
-          height={post.poster.height!}
-          className="mx-auto"
-        />
+        <MediaImage media={post.poster} alt="" className="mx-auto" />
       )}
     </div>
   );

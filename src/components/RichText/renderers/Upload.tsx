@@ -1,6 +1,7 @@
 import NextImage from 'next/image';
 
 import Link from 'next/link';
+import MediaImage from '@/components/MediaImage';
 import { LinkField } from '@/payload/custom-types';
 import { Media } from '@/payload/payload-types';
 import { Renderer } from '@/payload/richText/renderer/types';
@@ -28,10 +29,8 @@ const Image = ({
   className?: string;
 }) => {
   const image = (
-    <NextImage
-      src={value.url!}
-      width={value.width || 0}
-      height={value.height || 0}
+    <MediaImage
+      media={value}
       alt={value.alt || ''}
       className={cn(className, link && 'inline my-0')}
     />

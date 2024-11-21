@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { CollectionSlug, TypedCollection } from 'payload';
 import { SeoField } from '@/payload/payload-types';
+import extractImageMediaProps from '@/utils/extractMediaLink';
 
 const generateMeta = async <T extends CollectionSlug>(
   contentType: T,
@@ -9,7 +10,10 @@ const generateMeta = async <T extends CollectionSlug>(
   const seo =
     (doc && 'seo' in doc && (doc?.seo?.generated as SeoField)) || undefined;
 
-  const ogImage = typeof seo?.image === 'object' ? seo?.image?.url : undefined;
+  const ogImage =
+    typeof seo?.image === 'object'
+      ? extractImageMediaProps(seo.image)?.src
+      : undefined;
   const title = seo?.title && seo?.title ? seo.title : undefined;
   const description = seo?.description || undefined;
 

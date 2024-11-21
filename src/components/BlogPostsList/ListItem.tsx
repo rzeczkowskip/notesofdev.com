@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import MediaImage from '@/components/MediaImage';
 import Prose from '@/components/Prose';
 import RichText from '@/components/RichText/RichText';
 import Time from '@/components/Time';
@@ -33,16 +34,9 @@ const ListItem = ({ post }: ListItemProps) => {
         </div>
 
         <div className="w-32 h-32 shrink-0 grow-0">
-          {post.poster &&
-            typeof post.poster === 'object' &&
-            post.poster.sizes?.thumbnail?.url && (
-              <Image
-                src={post.poster.sizes.thumbnail.url!}
-                alt=""
-                width={post.poster.sizes.thumbnail.width!}
-                height={post.poster.sizes.thumbnail.height!}
-              />
-            )}
+          {post.poster && typeof post.poster === 'object' && (
+            <MediaImage alt="" media={post.poster} mediaSize="thumbnail" />
+          )}
         </div>
       </Link>
     </article>
