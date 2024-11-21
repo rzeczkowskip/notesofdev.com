@@ -41,7 +41,7 @@ const CodeBlock = ({
         <CopyCodeButton code={code} className="top-4 right-4 absolute" />
       )}
       {lineNumbers && (
-        <pre className="text-gray-11 border-r text-right grow-0 select-none">
+        <pre className="text-gray-11 border-r text-right grow-0 shrink-0 select-none">
           {getLineNumbers(code)}
         </pre>
       )}
