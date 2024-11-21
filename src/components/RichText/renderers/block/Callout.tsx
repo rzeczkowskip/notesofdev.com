@@ -8,7 +8,7 @@ type CalloutProps = {
   block: CalloutBlock;
 };
 
-const Callout = ({ block: { content, type = 'info' } }: CalloutProps) => {
+const Callout = ({ block: { content, type = 'neutral' } }: CalloutProps) => {
   if (!content) {
     return null;
   }
@@ -19,6 +19,7 @@ const Callout = ({ block: { content, type = 'info' } }: CalloutProps) => {
       className={cn(
         'px-5 border-b-2 rounded flex gap-5',
         type === 'info' && 'bg-info-2 border-info-8 text-info-12',
+        type === 'neutral' && 'bg-gray-2 border-gray-8 text-gray-12',
       )}
     >
       <div className="my-5">

@@ -4,7 +4,12 @@ const CalloutBlock: Block = {
   slug: 'callout',
   interfaceName: 'CalloutBlock',
   fields: [
-    { type: 'select', name: 'type', defaultValue: 'info', options: ['info'] },
+    {
+      type: 'select',
+      name: 'type',
+      defaultValue: 'neutral',
+      options: ['neutral', 'info'],
+    },
     { type: 'richText', name: 'content' },
   ],
 };

@@ -983,7 +983,7 @@ export interface LatestPostsBlock {
  * via the `definition` "CalloutBlock".
  */
 export interface CalloutBlock {
-  type?: 'info' | null;
+  type?: ('neutral' | 'info') | null;
   content?: {
     root: {
       type: string;
