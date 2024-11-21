@@ -34,7 +34,7 @@ const getEditorConfig: (
     ...options,
   };
 
-  const maxNesting = options.maxNesting ?? 5;
+  const maxNesting = options.maxNesting ?? 2;
   const canHaveNestedItems = maxNesting > 0;
 
   const nestedEditorConfig: RichTextEditorOptions = {
