@@ -1,5 +1,7 @@
 import { withPayload } from '@payloadcms/next/withPayload';
 
+const imageDomains = ['assets.notesofdev.com'];
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
@@ -7,18 +9,12 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    remotePatterns: [
-      ...[process.env.NEXT_PUBLIC_SERVER_URL, process.env.S3_PUBLIC_ENDPOINT]
-        .filter(Boolean)
-        .map((item) => {
-          const url = new URL(item);
-
-          return {
-            hostname: url.hostname,
-            protocol: url.protocol.replace(':', ''),
-          };
-        }),
-    ],
+    remotePatterns: imageDomains.map((hostname) => {
+      return {
+        hostname,
+        protocol: 'https',
+      };
+    }),
   },
   webpack: (config) => {
     const fileLoaderRule = config.module.rules.find((rule) =>
