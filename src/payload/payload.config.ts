@@ -2,7 +2,12 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
-import { buildConfig, CollectionSlug } from 'payload';
+import {
+  buildConfig,
+  CollectionConfig,
+  CollectionSlug,
+  GlobalConfig,
+} from 'payload';
 import sharp from 'sharp';
 
 import CalloutBlock from '@/payload/blocks/CalloutBlock';
@@ -27,6 +32,40 @@ import groupContentTypes from '@/payload/utils/groupContentTypes';
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
+const collections = groupContentTypes<CollectionConfig>(
+  {
+    items: [Pages, Media],
+  },
+  {
+    group: 'Blog',
+    items: [Posts, Tags],
+  },
+  { items: [Projects] },
+  {
+    group: 'System',
+    items: [Admins],
+  },
+);
+
+const editor = getEditorConfig({
+  debug: APP_DEBUG,
+  mediaCollections: [Media.slug] as CollectionSlug[],
+  linkableCollections: INTERNAL_LINK_COLLECTIONS,
+  mediaLinkField: link(
+    {},
+    {
+      withLabel: false,
+      withSelfLink: true,
+    },
+  ),
+  blocks: [CodeBlock, LatestPostsBlock, CalloutBlock],
+});
+
+const globals = groupContentTypes<GlobalConfig>({
+  group: 'System',
+  items: [SiteConfig],
+});
+
 export default buildConfig({
   admin: {
     user: Admins.slug,
@@ -47,37 +86,9 @@ export default buildConfig({
     locales: CONTENT_LOCALES,
     defaultLocale: CONTENT_LOCALES[0],
   },
-  collections: groupContentTypes(
-    {
-      items: [Pages, Media],
-    },
-    {
-      group: 'Blog',
-      items: [Posts, Tags],
-    },
-    { items: [Projects] },
-    {
-      group: 'System',
-      items: [Admins],
-    },
-  ),
-  globals: groupContentTypes({
-    group: 'System',
-    items: [SiteConfig],
-  }),
-  editor: getEditorConfig({
-    debug: APP_DEBUG,
-    mediaCollections: [Media.slug] as CollectionSlug[],
-    linkableCollections: INTERNAL_LINK_COLLECTIONS,
-    mediaLinkField: link(
-      {},
-      {
-        withLabel: false,
-        withSelfLink: true,
-      },
-    ),
-    blocks: [CodeBlock, LatestPostsBlock, CalloutBlock],
-  }),
+  collections,
+  globals,
+  editor,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
