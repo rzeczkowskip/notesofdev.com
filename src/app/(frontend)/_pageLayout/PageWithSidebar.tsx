@@ -37,7 +37,7 @@ const PageWithSidebar = async ({
 
   return (
     <div
-      className={cn('grid grid-cols-1 lg:grid-cols-3 gap-x-8 py-12', className)}
+      className={cn('grid grid-cols-1 lg:grid-cols-3 gap-8 py-12', className)}
     >
       <main className={cn('lg:col-span-2')}>{children}</main>
 
