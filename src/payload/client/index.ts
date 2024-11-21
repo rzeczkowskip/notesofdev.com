@@ -13,21 +13,3 @@ export const getUncachedPayload = async (): Promise<Payload> => {
 export const getPayload = async (): Promise<CachedPayload> => {
   return getCachedPayload(await getUncachedPayload());
 };
-
-export async function getCurrentAdmin(): Promise<Admin | null> {
-  const payload = await getUncachedPayload();
-  return (await payload.auth({ headers: await headers() })).user;
-}
-
-export const generatePayloadQueryDefaults = async (): Promise<
-  Partial<Parameters<Payload['find']>[0] & Parameters<Payload['findGlobal']>[0]>
-> => {
-  const { isEnabled: isDraftMode } = await draftMode();
-  const currentUser = isDraftMode ? await getCurrentAdmin() : undefined;
-
-  return {
-    draft: isDraftMode,
-    user: currentUser || undefined,
-    overrideAccess: false,
-  };
-};
