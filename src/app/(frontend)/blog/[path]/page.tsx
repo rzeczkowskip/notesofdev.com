@@ -23,7 +23,7 @@ type PageProps = {
   }>;
 };
 
-const getPost = async (params: PageProps['params']) => {
+const getPost = async (params: PageProps['params']): Promise<Post | null> => {
   return fetchDocumentByPath('posts', (await params).path);
 };
 
@@ -48,7 +48,7 @@ const PostHeader = ({ post }: { post: Post }) => {
 const Page = async ({ params }: PageProps) => {
   const post = await getPost(params);
 
-  if (!post) {
+  if (!post || !post.publishedAt || new Date(post.publishedAt) > new Date()) {
     return notFound();
   }
 

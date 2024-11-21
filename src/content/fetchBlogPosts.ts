@@ -1,4 +1,4 @@
-import { PaginatedDocs } from 'payload';
+import { PaginatedDocs, Where } from 'payload';
 import { getPayload } from '@/payload/client';
 import { Post, Tag } from '@/payload/payload-types';
 
@@ -24,7 +24,13 @@ const fetchBlogPosts = async (
   const tagIds = (options.tags || []).map(contentToId);
   const ignoredPosts = (options.ignoredPosts || []).map(contentToId);
 
-  const where = [];
+  const where: Where[] = [
+    {
+      publishedAt: {
+        less_than_equal: new Date(),
+      },
+    },
+  ];
 
   if (tagIds.length > 0) {
     where.push({

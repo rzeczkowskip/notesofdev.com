@@ -5,8 +5,8 @@ import BlogPostsList from '@/components/BlogPostsList/BlogPostsList';
 import Pagination from '@/components/Pagination';
 import Section from '@/components/Section';
 import { STATIC_ROUTES } from '@/contants';
-import { getPayload } from '@/payload/client';
-import { Post, Tag } from '@/payload/payload-types';
+import fetchBlogPosts from '@/content/fetchBlogPosts';
+import { Tag } from '@/payload/payload-types';
 
 export const dynamic = 'force-dynamic';
 
@@ -32,29 +32,16 @@ const parsePageNumber = (value: unknown): number => {
 const Blog = async ({ searchParams, tag }: PageProps) => {
   const params = await searchParams;
   const pageNumber = parsePageNumber(params.page);
-
-  const where = tag
-    ? {
-        tags: {
-          in: [tag.id],
-        },
-      }
-    : undefined;
-
-  const client = await getPayload();
   const {
     totalPages,
     hasNextPage,
     hasPrevPage,
     docs: posts,
-    // @ts-expect-error cache plugin issue
-  } = (await client.find({
-    collection: 'posts',
-    sort: '-publishedAt',
+  } = await fetchBlogPosts({
     limit: 20,
     page: pageNumber,
-    where,
-  })) as PaginatedDocs<Post>;
+    tags: tag ? [tag] : undefined,
+  });
 
   if (pageNumber && totalPages < pageNumber) {
     return notFound();
