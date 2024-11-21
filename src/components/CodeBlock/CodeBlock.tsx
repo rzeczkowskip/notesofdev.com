@@ -29,7 +29,7 @@ const CodeBlock = ({
   copy = true,
 }: CodeBlockProps) => {
   const highlightLanguage =
-    (language && hljs.getLanguage(language)?.name) || 'plaintext';
+    language && hljs.getLanguage(language) ? language : 'plaintext';
 
   const highlightedCodeHtml = hljs.highlight(code, {
     language: highlightLanguage,
