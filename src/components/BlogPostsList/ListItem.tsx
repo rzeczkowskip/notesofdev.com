@@ -5,12 +5,16 @@ import Prose from '@/components/Prose';
 import RichText from '@/components/RichText/RichText';
 import Time from '@/components/Time';
 import { Post } from '@/payload/payload-types';
+import cn from '@/utils/cn';
 
 type ListItemProps = {
   post: Post;
 };
 
 const ListItem = ({ post }: ListItemProps) => {
+  const poster =
+    post.poster && typeof post.poster === 'object' ? post.poster : null;
+
   return (
     <article className="grid grid-cols-1 gap-2 pb-5 border-b border-gray-7">
       <span className="text-sm uppercase text-gray-11 block">
@@ -33,10 +37,8 @@ const ListItem = ({ post }: ListItemProps) => {
           </div>
         </div>
 
-        <div className="w-32 h-32 shrink-0 grow-0">
-          {post.poster && typeof post.poster === 'object' && (
-            <MediaImage alt="" media={post.poster} mediaSize="thumbnail" />
-          )}
+        <div className={cn('w-32 shrink-0 grow-0', poster ? 'h-32' : 'h-0')}>
+          {poster && <MediaImage alt="" media={poster} mediaSize="thumbnail" />}
         </div>
       </Link>
     </article>
