@@ -92,7 +92,7 @@ const Page = async ({ params }: PageProps) => {
           {relatedPosts.length > 0 && (
             <Section>
               <Card title="Related posts" className="bg-solid">
-                <ul>
+                <ul className="grid grid-cols-1 gap-2">
                   {relatedPosts.map((relatedPost) => {
                     return (
                       <li className="flex gap-2" key={relatedPost.id}>
