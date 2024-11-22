@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import MediaImage from '@/components/MediaImage';
 import Prose from '@/components/Prose';

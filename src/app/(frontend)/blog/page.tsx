@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation';
-import { PaginatedDocs } from 'payload';
 import Page from '@/app/(frontend)/[[...path]]/page';
 import BlogPostsList from '@/components/BlogPostsList/BlogPostsList';
 import Pagination from '@/components/Pagination';
