@@ -21,6 +21,7 @@ const PageWithSidebar = async ({
     collection: 'tags',
     sort: 'title',
     depth: 0,
+    pagination: false,
   });
 
   // @ts-expect-error cache plugin issue
@@ -28,6 +29,7 @@ const PageWithSidebar = async ({
     collection: 'projects',
     sort: 'title',
     depth: 0,
+    pagination: false,
     where: {
       featured: {
         equals: true,
