@@ -64,7 +64,7 @@ const Blog = async ({ searchParams, tag }: PageProps) => {
                 nextPageLabel={'Older posts'}
                 prevPageLabel={'Newer posts'}
                 page={pageNumber}
-                generatePageHref={(p) => `/${STATIC_ROUTES.Blog}/?page=${p}`}
+                generatePageHref={(p) => `${STATIC_ROUTES.Blog}/?page=${p}`}
               />
             </Section>
           </div>
