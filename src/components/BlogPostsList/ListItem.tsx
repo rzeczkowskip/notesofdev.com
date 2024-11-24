@@ -35,8 +35,12 @@ const ListItem = ({ post }: ListItemProps) => {
             </Prose>
           </div>
         </div>
-
-        <div className={cn('w-32 shrink-0 grow-0', poster ? 'h-32' : 'h-0')}>
+        <div
+          className={cn(
+            'hidden md:block w-32 shrink-0 grow-0',
+            poster ? 'h-32' : 'h-0',
+          )}
+        >
           {poster && <MediaImage alt="" media={poster} mediaSize="thumbnail" />}
         </div>
       </Link>
