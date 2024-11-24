@@ -18,7 +18,7 @@ const TagsPage = async () => {
   const { docs } = (await client.find({
     collection: 'tags',
     sort: 'title',
-    limit: -1,
+    pagination: false,
   })) as PaginatedDocs<Tag>;
 
   if (docs.length === 0) {
