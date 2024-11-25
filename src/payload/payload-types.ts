@@ -640,6 +640,7 @@ export interface SiteConfig {
   general: {
     title: string;
     baseUrl?: string | null;
+    cloudflareAnalyticsToken?: string | null;
   };
   nav?: {
     main?: Nav;
@@ -684,6 +685,7 @@ export interface SiteConfigSelect<T extends boolean = true> {
     | {
         title?: T;
         baseUrl?: T;
+        cloudflareAnalyticsToken?: T;
       };
   nav?:
     | T

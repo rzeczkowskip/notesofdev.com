@@ -32,6 +32,12 @@ const SiteConfig: GlobalConfig = {
               required: false,
               localized: true,
             },
+            {
+              type: 'text',
+              name: 'cloudflareAnalyticsToken',
+              required: false,
+              localized: false,
+            },
           ],
         },
         {

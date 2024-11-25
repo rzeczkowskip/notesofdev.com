@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { Bitter, Mulish } from 'next/font/google';
 import Link from 'next/link';
 import { ThemeProvider } from 'next-themes';
+import Analytics from '@/components/Analytics';
 import Container from '@/components/Container';
 import Header from '@/components/Header/Header';
 import { getPayload } from '@/payload/client';
@@ -59,6 +60,10 @@ const Layout: React.FC<{ children: React.ReactNode }> = async ({
             </Container>
           </footer>
         </ThemeProvider>
+
+        <Analytics
+          cloudflareToken={siteConfig.general?.cloudflareAnalyticsToken}
+        />
       </body>
     </html>
   );
