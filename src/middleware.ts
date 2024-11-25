@@ -5,7 +5,7 @@ import { APP_ENV } from '@/contants';
 const NON_PROD_HTTP_AUTH_CREDENTIALS = 'riveo:dev';
 
 export const middleware = (req: NextRequest): NextResponse => {
-  if (APP_ENV === 'prod') {
+  if (APP_ENV === 'prod' || APP_ENV === 'local') {
     return NextResponse.next();
   }
 
