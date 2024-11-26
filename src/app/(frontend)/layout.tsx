@@ -6,6 +6,7 @@ import { ThemeProvider } from 'next-themes';
 import Analytics from '@/components/Analytics';
 import Container from '@/components/Container';
 import Header from '@/components/Header/Header';
+import ProgressBarProvider from '@/components/ProgressBarProvider';
 import { getPayload } from '@/payload/client';
 import cn from '@/utils/cn';
 
@@ -42,23 +43,25 @@ const Layout: React.FC<{ children: React.ReactNode }> = async ({
     >
       <body>
         <ThemeProvider attribute="class">
-          <Header nav={siteConfig.nav?.main} />
+          <ProgressBarProvider>
+            <Header nav={siteConfig.nav?.main} />
 
-          {children}
+            {children}
 
-          <footer className="mb-8 pt-8 border-t border-gray-6">
-            <Container>
-              <p className="text-center">
-                Copyright &copy;{' '}
-                <Link
-                  href="/"
-                  className=" underline text-primary-11 hover:text-primary-12"
-                >
-                  {siteConfig?.general.title}
-                </Link>
-              </p>
-            </Container>
-          </footer>
+            <footer className="mb-8 pt-8 border-t border-gray-6">
+              <Container>
+                <p className="text-center">
+                  Copyright &copy;{' '}
+                  <Link
+                    href="/"
+                    className=" underline text-primary-11 hover:text-primary-12"
+                  >
+                    {siteConfig?.general.title}
+                  </Link>
+                </p>
+              </Container>
+            </footer>
+          </ProgressBarProvider>
         </ThemeProvider>
 
         <Analytics
@@ -75,11 +78,15 @@ export const generateMetadata = async (): Promise<Metadata> => {
   const siteConfig = await getSiteConfig();
 
   const title = {
-    default: 'Home',
+    default: siteConfig?.general?.title,
     template: `%s | ${siteConfig?.general?.title}`,
   };
 
   return {
     title,
+    openGraph: {
+      siteName: siteConfig.general.title,
+      title,
+    },
   };
 };
