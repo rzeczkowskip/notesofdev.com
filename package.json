@@ -58,7 +58,7 @@
     "typescript": "5.6.3"
   },
   "engines": {
-    "node": "^20.15"
+    "node": "^22.11"
   },
   "pnpm": {
     "overrides": {
