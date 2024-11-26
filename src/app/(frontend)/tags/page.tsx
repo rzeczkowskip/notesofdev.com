@@ -1,4 +1,5 @@
 import { ArrowRightIcon } from '@heroicons/react/24/solid';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PaginatedDocs } from 'payload';
 import Page from '@/app/(frontend)/[[...path]]/page';
@@ -7,6 +8,8 @@ import CtaLink from '@/components/CtaLink/CtaLink';
 import Section from '@/components/Section';
 import TagsList from '@/components/TagsList/TagsList';
 import { STATIC_ROUTES } from '@/contants';
+import fetchDocumentByPath from '@/content/fetchDocumentByPath';
+import generateMeta from '@/content/generateMeta';
 import { getPayload } from '@/payload/client';
 import { Tag } from '@/payload/payload-types';
 
@@ -48,6 +51,12 @@ const TagsPage = async () => {
       }
     />
   );
+};
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  return generateMeta(await fetchDocumentByPath('pages', STATIC_ROUTES.Tags), {
+    title: 'Tags',
+  });
 };
 
 export default TagsPage;

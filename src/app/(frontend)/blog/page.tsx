@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Page from '@/app/(frontend)/[[...path]]/page';
 import BlogPostsList from '@/components/BlogPostsList/BlogPostsList';
@@ -5,6 +6,8 @@ import Pagination from '@/components/Pagination';
 import Section from '@/components/Section';
 import { STATIC_ROUTES } from '@/contants';
 import fetchBlogPosts from '@/content/fetchBlogPosts';
+import fetchDocumentByPath from '@/content/fetchDocumentByPath';
+import generateMeta from '@/content/generateMeta';
 import { Tag } from '@/payload/payload-types';
 
 export const dynamic = 'force-dynamic';
@@ -72,6 +75,12 @@ const Blog = async ({ searchParams, tag }: PageProps) => {
       }
     />
   );
+};
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  return generateMeta(await fetchDocumentByPath('pages', STATIC_ROUTES.Blog), {
+    title: 'Blog',
+  });
 };
 
 export default Blog;

@@ -1,8 +1,11 @@
+import { Metadata } from 'next';
 import { PaginatedDocs } from 'payload';
 import Page from '@/app/(frontend)/[[...path]]/page';
 import ProjectsList from '@/components/ProjectsList/ProjectsList';
 import Section from '@/components/Section';
 import { STATIC_ROUTES } from '@/contants';
+import fetchDocumentByPath from '@/content/fetchDocumentByPath';
+import generateMeta from '@/content/generateMeta';
 import { getPayload } from '@/payload/client';
 import { Project } from '@/payload/payload-types';
 
@@ -35,6 +38,15 @@ const Projects = async () => {
         )
       }
     />
+  );
+};
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  return generateMeta(
+    await fetchDocumentByPath('pages', STATIC_ROUTES.Projects),
+    {
+      title: 'Projects',
+    },
   );
 };
 

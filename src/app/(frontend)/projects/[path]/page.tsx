@@ -48,7 +48,6 @@ const Page = async ({ params }: PageProps) => {
 
 export const generateMetadata = async ({
   params,
-}: PageProps): Promise<Metadata> =>
-  generateMeta('projects', await getProject(params));
+}: PageProps): Promise<Metadata> => generateMeta(await getProject(params));
 
 export default Page;

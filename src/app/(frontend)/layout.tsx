@@ -83,9 +83,11 @@ export const generateMetadata = async (): Promise<Metadata> => {
   };
 
   return {
+    metadataBase: siteConfig.general.baseUrl
+      ? URL.parse(siteConfig.general.baseUrl)
+      : undefined,
     title,
     openGraph: {
-      siteName: siteConfig.general.title,
       title,
     },
   };

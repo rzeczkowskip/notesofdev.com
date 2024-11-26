@@ -1,41 +1,46 @@
+import merge from 'lodash/merge';
 import { Metadata } from 'next';
 import { CollectionSlug, TypedCollection } from 'payload';
+import getSiteConfig from '@/content/getSiteConfig';
 import { SeoField } from '@/payload/payload-types';
 import extractImageMediaProps from '@/utils/extractMediaLink';
 
-const generateMeta = async <T extends CollectionSlug>(
-  contentType: T,
-  doc?: TypedCollection[T] | null,
-): Promise<Metadata> => {
-  const seo =
-    (doc && 'seo' in doc && (doc?.seo?.generated as SeoField)) || undefined;
-
-  const ogImage =
-    typeof seo?.image === 'object'
-      ? extractImageMediaProps(seo.image)?.src
-      : undefined;
-  const title = seo?.title && seo?.title ? seo.title : undefined;
-  const description = seo?.description || undefined;
-
+const extractPageSeoData = (data?: SeoField) => {
   return {
-    description,
+    title: data?.generated?.title || undefined,
+    description: data?.generated?.description || undefined,
+    image:
+      typeof data?.image === 'object'
+        ? extractImageMediaProps(data.image)?.src
+        : undefined,
+  };
+};
+
+const generateMeta = async <T extends CollectionSlug>(
+  doc?: TypedCollection[T] | null,
+  fallback?: Partial<Metadata>,
+): Promise<Metadata> => {
+  const siteConfig = await getSiteConfig();
+  const seo = extractPageSeoData(doc && 'seo' in doc ? doc?.seo : undefined);
+
+  const metadata: Metadata = {
+    description: seo.description,
     openGraph: {
-      description,
-      images: ogImage
+      description: seo.description,
+      images: seo.image
         ? [
             {
-              url: ogImage,
+              url: seo.image,
             },
           ]
         : undefined,
-      title,
-      url:
-        doc && 'routing' in doc && !!doc.routing.path
-          ? doc.routing.path
-          : undefined,
+      title: seo.title,
+      siteName: siteConfig.general.title,
     },
-    title,
+    title: seo.title,
   };
+
+  return merge({}, fallback || {}, metadata);
 };
 
 export default generateMeta;
