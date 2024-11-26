@@ -11,7 +11,7 @@ const Card = ({ title, children, className, titleClassName }: SectionProps) => {
   return (
     <section className={cn('border p-5', className)}>
       {title && (
-        <h1 className={cn('font-semibold text-xl mb-5', titleClassName)}>
+        <h1 className={cn('font-bold text-xl mb-5', titleClassName)}>
           {title}
         </h1>
       )}

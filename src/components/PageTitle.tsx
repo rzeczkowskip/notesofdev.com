@@ -11,7 +11,7 @@ const PageTitle = ({ children, className }: PageTitleProps) => {
   }
 
   return (
-    <h1 className={cn('text-5xl font-semibold leading-none mb-8', className)}>
+    <h1 className={cn('text-5xl font-bold leading-none mb-8', className)}>
       {children}
     </h1>
   );

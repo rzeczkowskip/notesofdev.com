@@ -23,7 +23,7 @@ const ListItem = ({ post }: ListItemProps) => {
 
       <Link className="flex flex-nowrap gap-5 group" href={post.routing.path}>
         <div className="grid grid-cols-1 gap-2 grow">
-          <h1 className="text-xl font-semibold group-hover:text-primary-11">
+          <h1 className="text-xl font-bold group-hover:text-primary-11">
             <span className="inline-block group-hover:translate-x-1 transition-transform">
               {post.title}
             </span>
