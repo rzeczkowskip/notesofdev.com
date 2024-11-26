@@ -8,7 +8,8 @@ const ProgressBarProvider = ({ children }: PropsWithChildren) => {
     <>
       {children}
       <AppProgressBar
-        color="var(--color-primary-8)"
+        height="3px"
+        color="var(--color-primary-9)"
         options={{ showSpinner: false }}
       />
     </>
